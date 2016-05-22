@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.common.dao.customT0a9Mapper" >
+
+    <!-- 公的証明書を取得する。-->
+    <select id="findByPublicCertificate" parameterType="java.util.Map" resultMap="com.common.dao.T0a9Mapper.BaseResultMap">
+        SELECT
+            TRIM(T0A9.T0A9001) AS T0A9001,
+            T0A9.T0A9002 AS T0A9002,
+            T0A9.T0A9101 AS T0A9101,
+            T0A9.T0A9102 AS T0A9102,
+            T0A9.T0A9103 AS T0A9103,
+            T0A9.T0A9201 AS T0A9201,
+            T0A9.T0A9202 AS T0A9202
+        FROM T0A9
+        WHERE
+           T0A9.T0A9001 = #stationCd#
+           AND
+           T0A9.T0A9101 = 1
+           AND
+           T0A9.T0A9102 = #contractSeq#
+    </select>
+
+</mapper>

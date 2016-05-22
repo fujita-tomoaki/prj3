@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="genfiles" basedir=".">
+ <property name="generated.source.dir" value="${basedir}" />
+
+ <target name="genfiles" description="Generate the files">
+   <taskdef name="mbgenerator" classname="org.mybatis.generator.ant.GeneratorAntTask"
+   	classpath="C:\Program Files\eclipse\plugins\org.mybatis.generator.core_1.3.2.201207161521.jar" />
+   <mbgenerator overwrite="true" configfile="generatorConfig.xml" verbose="false">
+     <propertyset>
+       <propertyref name="generated.source.dir" />
+     </propertyset>
+   </mbgenerator>
+ </target>
+</project>

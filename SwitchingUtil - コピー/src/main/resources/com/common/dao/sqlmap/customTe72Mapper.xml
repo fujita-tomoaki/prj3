@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.common.dao.customTe72Mapper" >
+    
+    <!-- Add Start 20151009 m.yakabi 電力対応 -->
+    <resultMap id="setAfBizProcStatusCheckLinkRequestInfoResult" type="com.common.dao.model.Te72">
+        <result property="te72101" column="TE72101" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理中業務処理状況確認連番 -->
+    </resultMap>
+    
+    <!-- 業務処理状況確認情報取得 -->
+    <select id="getAfBizProcStatusCheckLinkRequestInfo" parameterType="java.lang.String" resultMap="setAfBizProcStatusCheckLinkRequestInfoResult">
+        SELECT
+			TE72101
+		FROM
+			TE72
+		WHERE
+			TE72.TE72001 = #stationCd#
+    </select>
+    <!-- Add End 20151009 m.yakabi 電力対応 -->
+    
+</mapper>

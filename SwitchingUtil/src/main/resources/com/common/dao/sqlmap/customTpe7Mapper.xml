@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.common.dao.customTpe7Mapper" >
+
+    <!-- 任意に指定された検索キーでTPE7画面設定マスタを取得する -->
+    <select id="getDisplayConfigMasterList" parameterType="com.common.dao.model.Tpe7" resultMap="com.common.dao.Tpe7Mapper.BaseResultMap">
+        SELECT
+            TRIM(TPE7.TPE7001) AS TPE7001,
+            TPE7.TPE7002 AS TPE7002,
+            TPE7.TPE7003 AS TPE7003,
+            TPE7.TPE7004 AS TPE7004,
+            TPE7.TPE7005 AS TPE7005,
+            TPE7.TPE7101 AS TPE7101,
+            TPE7.TPE7102 AS TPE7102,
+            TPE7.TPE7103 AS TPE7103,
+            TRIM(TPE7.CREATOR) AS CREATOR,
+            TPE7.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(TPE7.UPDATER) AS UPDATER,
+            TPE7.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(TPE7.UPDATE_APP) AS UPDATE_APP,
+            TPE7.VERSION_NO AS VERSION_NO
+        FROM TPE7
+        WHERE
+           TPE7.TPE7001 = #tpe7001#
+		   AND
+           TPE7.TPE7002 = #tpe7002#
+           <if test="tpe7003 != null">
+    	     AND TPE7.TPE7003 = #tpe7003#
+           </if>
+           <if test="tpe7004 != null">
+	         AND TPE7.TPE7004 = #tpe7004#
+           </if>
+        ORDER BY
+           TPE7.TPE7001,
+           TPE7.TPE7002,
+           TPE7.TPE7003,
+           TPE7.TPE7004,
+           TPE7.TPE7005
+    </select>
+
+</mapper>

@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)T105EntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- T105顧客住所を扱うためのデータアクセス定義 -->
+<sqlMap namespace="T105EntityDao">
+    <!--  // A_20120611_Copy_From India's T105EntityDao.xml class start -->
+    <select id="getKanjiName1" parameterClass="java.util.HashMap"
+		resultMap="T105Result">
+		SELECT
+		TRIM(T105.T105001) AS T105001,
+		TRIM(T105.T105002) AS T105002,
+		T105.T105003 AS T105003,
+		T105.T105004 AS T105004,
+		T105.T105101 AS T105101,
+		TRIM(T105.T105102) AS T105102,
+		T105.T105201 AS T105201,
+		T105.T105202 AS T105202,
+		T105.T105203 AS T105203,
+		T105.T105204 AS T105204,
+		TRIM(T105.T105301) AS T105301,
+		T105.T105302 AS T105302,
+		T105.T105303 AS T105303,
+		T105.T105304 AS T105304,
+		T105.T105305 AS T105305,
+		T105.T105306 AS T105306,
+		T105.T105307 AS T105307,
+		T105.T105308 AS T105308,
+		TRIM(T105.T105309) AS T105309,
+		T105.T105310 AS T105310,
+		T105.T105311 AS T105311,
+		T105.T105312 AS T105312,
+		T105.T105313 AS T105313,
+		TRIM(T105.T105314) AS T105314,
+        T105.T105315 AS T105315,
+        TRIM(T105.T105316) AS T105316,
+		T105.T105401 AS T105401,
+		TRIM(T105.CREATOR) AS CREATOR,
+		T105.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+		TRIM(T105.UPDATER) AS UPDATER,
+		T105.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+		TRIM(T105.UPDATE_APP) AS UPDATE_APP,
+		T105.VERSION_NO AS VERSION_NO
+		FROM T105
+		WHERE T105001 = #stationCd#
+		AND T105002 = #customerCd#
+		AND T105003 = 2
+	</select>
+    <!--  // A_20120611_Copy_From India's T105EntityDao.xml class end -->
+
+    <!-- 主キーで指定されたT105顧客住所の区分連番の最大値を取得する -->
+    <select id="getMaxSeqNo"
+            parameterClass="jp.co.hanshin.itec.caty.contract.model.T105EntityModel"
+            resultClass="java.math.BigDecimal">
+        SELECT
+            NVL(MAX(T105.T105004), 0)
+        FROM T105
+        WHERE
+           T105.T105001 = #t105001#
+        AND
+             T105.T105002 = #t105002#
+        AND
+             T105.T105003 = #t105003#
+    </select>
+    
+    <!-- ADD START 20140723 PHUCPQ maintain -->
+
+    <!-- 顧客住所最大区分連番 -->
+    <select id="customerAddressBiggestDivSerialNumber"
+            parameterClass="java.util.HashMap"
+            resultClass="java.math.BigDecimal">
+        SELECT
+            NVL(MAX(T105.T105004), 0)
+        FROM T105
+        WHERE
+           T105.T105001 = #stationCd#
+        AND
+             T105.T105002 = #customerCd#
+        AND
+             T105.T105003 = #div#
+    </select>
+    <!-- ADD END 20140723 PHUCPQ maintain -->
+    
+    <select id="findByKanaTel_dolinc"
+            parameterClass="java.util.HashMap"
+            resultMap="T105Result">
+        SELECT
+            TRIM(T105.T105001) AS T105001,
+            TRIM(T105.T105002) AS T105002,
+            T105.T105003 AS T105003,
+            T105.T105004 AS T105004,
+            T105.T105101 AS T105101,
+            TRIM(T105.T105102) AS T105102,
+            T105.T105103 AS T105103,
+            T105.T105201 AS T105201,
+            T105.T105202 AS T105202,
+            T105.T105203 AS T105203,
+            T105.T105204 AS T105204,
+            T105.T105205 AS T105205,<!-- 2015.8.28 K.Kogashi Add -->
+            TRIM(T105.T105301) AS T105301,
+            T105.T105302 AS T105302,
+            T105.T105303 AS T105303,
+            T105.T105304 AS T105304,
+            T105.T105305 AS T105305,
+            T105.T105306 AS T105306,
+            T105.T105307 AS T105307,
+            T105.T105308 AS T105308,
+            TRIM(T105.T105309) AS T105309,
+            T105.T105310 AS T105310,
+            T105.T105311 AS T105311,
+            T105.T105312 AS T105312,
+            T105.T105313 AS T105313,
+            TRIM(T105.T105314) AS T105314,
+            T105.T105315 AS T105315,
+            TRIM(T105.T105316) AS T105316,
+            T105.T105401 AS T105401,
+            TRIM(T105.CREATOR) AS CREATOR,
+            T105.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(T105.UPDATER) AS UPDATER,
+            T105.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(T105.UPDATE_APP) AS UPDATE_APP,
+            T105.VERSION_NO AS VERSION_NO
+        FROM T105
+        WHERE
+        	T105.T105001 = #stationCd#
+        AND T105.T105002 != #customerCd#
+		AND	T105.T105201 = #kanaName#
+    <isNotNull property="whereTel">
+		AND (T105.T105311 IN (#tel1#,#tel2#,#tel3#) OR T105.T105312 IN (#tel1#,#tel2#,#tel3#) OR T105.T105315 IN (#tel1#,#tel2#,#tel3#))
+	</isNotNull>
+    <isNull property="whereTel">
+		AND T105.T105311 IS NULL AND T105.T105312 IS NULL AND T105.T105315 IS NULL
+    </isNull>
+        ORDER BY T105001, T105002, T105003
+    </select>
+
+    <select id="duplicationCustomerNumberGet" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+        SELECT
+            COUNT(T105002)
+
+        FROM T105 T1
+
+        WHERE
+                T1.T105001 = #stationCd#
+            AND
+                (
+                    (
+                            T1.T105201 = #kanaName#
+                        <isNotEmpty prepend="AND" property="kanjiName1">
+                            T1.T105202 || T1.T105203 = #kanjiName1# || #kanjiName2#
+                        </isNotEmpty>
+                        <isEmpty property="kanjiName1">
+                            <isNotEmpty prepend="AND" property="kanjiName2">
+                            T1.T105202 || T1.T105203 = #kanjiName1# || #kanjiName2#
+                            </isNotEmpty>
+                        </isEmpty>
+
+                        <isNotEmpty prepend="AND" property="mailNumber">
+                        T1.T105301 = #mailNumber#
+                        </isNotEmpty>
+                    )
+                    <!--Add start 2016/03/01 FPT.ThangTQ7 CATPPSSB-290対応 -->
+                    <isNotEmpty property="tel1">
+                    <!--Add end 2016/03/01 FPT.ThangTQ7 CATPPSSB-290対応 -->
+                    OR
+                    (
+                        T1.T105311 = #tel1#
+                        OR
+                        T1.T105312 = #tel1#
+                        OR
+                        T1.T105313 = #tel1#
+                        OR
+                        T1.T105315 = #tel1#
+                    )
+                    <!--Add start 2016/03/01 FPT.ThangTQ7 CATPPSSB-290対応 -->
+                    </isNotEmpty>
+                    <!--Add end 2016/03/01 FPT.ThangTQ7 CATPPSSB-290対応 -->
+                )
+    </select>
+    
+    <select id="customerAddressGet" resultClass="jp.co.hanshin.itec.caty.contract.model.CustomerAddressResult" parameterClass="java.util.Map">
+		SELECT
+			T105003,
+			T105004,
+			DECODE(T105003,1,'1',2,'2',3,'3',4,'4') || ' ' || SUBSTR(T105301,1,3) || '-' || SUBSTR(T105301,4,4) || ' ' ||
+			ADDRESS AS address
+		FROM
+			(
+			SELECT
+				T105003,
+				T105004,
+				T105301,
+				T105302||T105303|| TO_SINGLE_BYTE(
+					TRIM(T105304)||DECODE(TRIM(T105304),NULL,'',
+					DECODE(TRIM(T105305)||TRIM(T105306),NULL,'', '-'))
+					||TRIM(T105305)||DECODE(TRIM(T105305),NULL,'',
+					DECODE(TRIM(T105306),NULL,'','-')) || TRIM(T105306)) || ' ' || TRIM(T105310) || ' ' ||
+				T105307 || DECODE(TRIM(T105307),NULL,'',DECODE(TRIM(T105308),NULL,'','-')) ||T105308
+				AS ADDRESS
+			FROM
+				T105
+			WHERE
+				T105.T105001 = #stationCd#
+				AND T105.T105002 = #customerCd#
+			)
+		WHERE
+			RTRIM(ADDRESS) IS NOT NULL
+		ORDER BY T105003,T105004
+	</select>
+	
+	<select id="destinationGuideSendGet" resultClass="java.lang.String" parameterClass="java.util.Map">
+		SELECT 
+			DECODE(T105003,1,'1',2,'2',3,'3',4,'4') || 'space' || SUBSTR(T105301,1,3) || '-' || SUBSTR(T105301,4,4) || 'space' || ADDRESS
+		FROM 
+		(
+			SELECT
+				T105003,
+				T105301,
+				T105302||T105303|| TO_SINGLE_BYTE(
+					TRIM(T105304)||DECODE(TRIM(T105304),NULL,'',
+					DECODE(TRIM(T105305)||TRIM(T105306),NULL,'', '-'))
+					||TRIM(T105305)||DECODE(TRIM(T105305),NULL,'',
+					DECODE(TRIM(T105306),NULL,'','-')) ||TRIM(T105306)
+					) || ' ' || TRIM(T105310)  || ' ' || 
+					T105307 || DECODE(TRIM(T105307),NULL,'',DECODE(TRIM(T105308),NULL,'','-')) || T105308
+				 AS ADDRESS
+			FROM T105
+			WHERE
+				T105.T105001 = #stationCd#
+				and T105.T105002 = #customerCd#
+				and T105.T105003 = #guideDispatchPlace#
+				and T105.T105004 = #guideDispatchPlaceSerialNum#
+		)
+		
+		WHERE
+		 	RTRIM(ADDRESS) IS NOT NULL
+
+	</select>
+	
+	<select id="validAddress" resultClass="java.lang.Integer" parameterClass="jp.co.hanshin.itec.caty.contract.model.T105EntityModel">
+		SELECT 
+		  COUNT(T105001) 
+		FROM T105 
+		WHERE
+		  T105001=TRIM(#t105001#)
+		  AND T105002=TRIM(#t105002#)
+		  AND T105201=TRIM(#t105201#)
+		  AND T105202=TRIM(#t105202#)
+		  AND T105203=TRIM(#t105203#)
+		  AND T105204=TRIM(#t105204#)
+		  AND T105301=TRIM(#t105301#)
+		  AND T105302=TRIM(#t105302#)
+		  AND T105303=TRIM(#t105303#)
+		  AND T105304=TRIM(#t105304#)
+		  AND T105305=TRIM(#t105305#)
+		  AND T105306=TRIM(#t105306#)
+		  AND T105307=TRIM(#t105307#)
+		  AND T105308=TRIM(#t105308#)
+		  AND T105309=TRIM(#t105309#)
+		  AND T105310=TRIM(#t105310#)
+		  AND T105311=TRIM(#t105311#)
+		  AND T105312=TRIM(#t105312#)
+		  AND T105313=TRIM(#t105313#)
+		  AND T105314=TRIM(#t105314#)
+		  AND T105315=TRIM(#t105315#)
+		  AND T105316=TRIM(#t105316#)
+	</select>
+
+	<!-- Add - FPT-AnhMV - CXK0103 -->	
+    <select id="getCustomerAddressAcquisition"
+            parameterClass="java.util.Map"
+            resultMap="T105Result">
+            
+        SELECT
+            TRIM(T105.T105001) AS T105001,
+			TRIM(T105.T105002) AS T105002,
+			T105.T105003 AS T105003,
+			T105.T105004 AS T105004,
+			T105.T105101 AS T105101,
+			TRIM(T105.T105102) AS T105102,
+			TRIM(T105.T105103) AS T105103,
+			T105.T105201 AS T105201,
+			T105.T105202 AS T105202,
+			T105.T105203 AS T105203,
+			T105.T105204 AS T105204,
+			TRIM(T105.T105301) AS T105301,
+			T105.T105302 AS T105302,
+			T105.T105303 AS T105303,
+			T105.T105304 AS T105304,
+			T105.T105305 AS T105305,
+			T105.T105306 AS T105306,
+			T105.T105307 AS T105307,
+			T105.T105308 AS T105308,
+			TRIM(T105.T105309) AS T105309,
+			T105.T105310 AS T105310,
+			T105.T105311 AS T105311,
+			T105.T105312 AS T105312,
+			T105.T105313 AS T105313,
+			TRIM(T105.T105314) AS T105314,
+	        T105.T105315 AS T105315,
+	        TRIM(T105.T105316) AS T105316,
+			T105.T105401 AS T105401,
+			TRIM(T105.CREATOR) AS CREATOR,
+			T105.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+			TRIM(T105.UPDATER) AS UPDATER,
+			T105.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+			TRIM(T105.UPDATE_APP) AS UPDATE_APP,
+			T105.VERSION_NO AS VERSION_NO
+		FROM T105		
+		WHERE 		
+			T105.T105001 = #stationCd#
+			AND  T105.T105002 = #customerCd#
+		ORDER BY 		
+			T105003, T105004	
+	</select>
+	<!-- End - FPT-AnhMV - CXK0103 -->	
+	
+    <resultMap id="CustomerAddressInfoResult" class="jp.co.hanshin.itec.caty.contract.model.T105EntityModel">
+        <result property="t105001" column="T105001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="t105002" column="T105002" jdbcType="CHAR"/> <!-- 顧客コード -->
+        <result property="t105003" column="T105003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 区分 -->
+        <result property="t105004" column="T105004" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 区分連番 -->
+        <result property="t105101" column="T105101" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 顧客状態 -->
+        <result property="t105102" column="T105102" jdbcType="CHAR"/> <!-- 契約者コード -->
+        <result property="t105103" column="T105103" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 建物区分 -->
+        <result property="t105201" column="T105201" jdbcType="VARCHAR"/> <!-- カナ氏名 -->
+        <result property="t105202" column="T105202" jdbcType="VARCHAR"/> <!-- 漢字氏名１ -->
+        <result property="t105203" column="T105203" jdbcType="VARCHAR"/> <!-- 漢字氏名２ -->
+        <result property="t105204" column="T105204" jdbcType="VARCHAR"/> <!-- 敬称 -->
+        <result property="t105205" column="T105205" jdbcType="VARCHAR"/> <!-- 漢字氏名３ -->
+        <result property="t105301" column="T105301" jdbcType="CHAR"/> <!-- 郵便番号 -->
+        <result property="t105302" column="T105302" jdbcType="VARCHAR"/> <!-- 住所１ -->
+        <result property="t105303" column="T105303" jdbcType="VARCHAR"/> <!-- 住所２ -->
+        <result property="t105304" column="T105304" jdbcType="VARCHAR"/> <!-- 丁目 -->
+        <result property="t105305" column="T105305" jdbcType="VARCHAR"/> <!-- 番地 -->
+        <result property="t105306" column="T105306" jdbcType="VARCHAR"/> <!-- 号 -->
+        <result property="t105307" column="T105307" jdbcType="VARCHAR"/> <!-- 棟 -->
+        <result property="t105308" column="T105308" jdbcType="VARCHAR"/> <!-- 部屋番号 -->
+        <result property="t105309" column="T105309" jdbcType="CHAR"/> <!-- 集合住宅コード -->
+        <result property="t105310" column="T105310" jdbcType="VARCHAR"/> <!-- 集合住宅名 -->
+        <result property="t105311" column="T105311" jdbcType="VARCHAR"/> <!-- ＴＥＬ１ -->
+        <result property="t105312" column="T105312" jdbcType="VARCHAR"/> <!-- ＴＥＬ２ -->
+        <result property="t105313" column="T105313" jdbcType="VARCHAR"/> <!-- ＦＡＸ -->
+        <result property="t105314" column="T105314" jdbcType="CHAR"/> <!-- メール -->
+        <result property="t105315" column="T105315" jdbcType="VARCHAR"/> <!-- ＴＥＬ３ -->
+        <result property="t105316" column="T105316" jdbcType="CHAR"/> <!-- メール２ -->
+    </resultMap>    <select id="findByCustomerAddressInfo"
+            parameterClass="java.util.Map"
+            resultMap="CustomerAddressInfoResult">
+        SELECT
+            TRIM(T105.T105001) AS T105001,
+            TRIM(T105.T105002) AS T105002,
+            T105.T105003 AS T105003,
+            T105.T105004 AS T105004,
+            T105.T105101 AS T105101,
+            TRIM(T105.T105102) AS T105102,
+            T105.T105103 AS T105103,
+            T105.T105201 AS T105201,
+            T105.T105202 AS T105202,
+            T105.T105203 AS T105203,
+            T105.T105204 AS T105204,
+            T105.T105205 AS T105205,
+            TRIM(T105.T105301) AS T105301,
+            T105.T105302 AS T105302,
+            T105.T105303 AS T105303,
+            T105.T105304 AS T105304,
+            T105.T105305 AS T105305,
+            T105.T105306 AS T105306,
+            T105.T105307 AS T105307,
+            T105.T105308 AS T105308,
+            TRIM(T105.T105309) AS T105309,
+            T105.T105310 AS T105310,
+            T105.T105311 AS T105311,
+            T105.T105312 AS T105312,
+            T105.T105313 AS T105313,
+            TRIM(T105.T105314) AS T105314,
+            T105.T105315 AS T105315,
+            TRIM(T105.T105316) AS T105316
+        FROM T105
+        WHERE
+           T105.T105001 = #t105001#
+           AND
+           T105.T105002 = #t105002#
+    </select>
+    
+    
+	<!-- Add Start 20151010 kameyama -->	
+    <resultMap id="GetBillAdressInfoResult"
+    class="jp.co.hanshin.itec.caty.contract.model.GetBillAdressInfoResult">
+    	<result property="SEIKYUT105002" column="SEIKYUT105002" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105202" column="SEIKYUT105202" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105203" column="SEIKYUT105203" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105205" column="SEIKYUT105205" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105301" column="SEIKYUT105301" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105302" column="SEIKYUT105302" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105303" column="SEIKYUT105303" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105304" column="SEIKYUT105304" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105305" column="SEIKYUT105305" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105306" column="SEIKYUT105306" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105307" column="SEIKYUT105307" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105308" column="SEIKYUT105308" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SEIKYUT105310" column="SEIKYUT105310" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105202" column="SETTIT105202" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105302" column="SETTIT105302" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105303" column="SETTIT105303" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105304" column="SETTIT105304" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105305" column="SETTIT105305" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105306" column="SETTIT105306" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105307" column="SETTIT105307" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105308" column="SETTIT105308" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    	<result property="SETTIT105310" column="SETTIT105310" javaType="java.lang.String" jdbcType="VARCHAR2"/>
+    </resultMap>
+
+    <select id="getBillAdressInfo"
+    		parameterClass="java.util.Map"
+    		resultMap="GetBillAdressInfoResult">
+    	
+    	SELECT
+			 SEIKYU.T105002 AS SEIKYUT105002
+			,SEIKYU.T105202 AS SEIKYUT105202
+			,SEIKYU.T105203 AS SEIKYUT105203
+			,SEIKYU.T105205 AS SEIKYUT105205
+			,SEIKYU.T105301 AS SEIKYUT105301
+			,SEIKYU.T105302 AS SEIKYUT105302
+			,SEIKYU.T105303 AS SEIKYUT105303
+			,SEIKYU.T105304 AS SEIKYUT105304
+			,SEIKYU.T105305 AS SEIKYUT105305
+			,SEIKYU.T105306 AS SEIKYUT105306
+			,SEIKYU.T105307 AS SEIKYUT105307
+			,SEIKYU.T105308 AS SEIKYUT105308
+			,SEIKYU.T105310 AS SEIKYUT105310
+			,SETTI.T105202 AS SETTIT105202
+			,SETTI.T105302 AS SETTIT105302
+			,SETTI.T105303 AS SETTIT105303
+			,SETTI.T105304 AS SETTIT105304
+			,SETTI.T105305 AS SETTIT105305
+			,SETTI.T105306 AS SETTIT105306
+			,SETTI.T105307 AS SETTIT105307
+			,SETTI.T105308 AS SETTIT105308
+			,SETTI.T105310 AS SETTIT105310
+		FROM
+			 T105 SEIKYU		
+				INNER JOIN T105 SETTI ON (
+					SEIKYU.T105001 = SETTI.T105001
+				AND	SEIKYU.T105002 = SETTI.T105002
+				)
+		WHERE
+			SEIKYU.T105001       = #stationCd#
+			AND SEIKYU.T105002   = #customerCd#
+			AND SEIKYU.T105003   = #billIssue#
+			AND SEIKYU.T105004   = #billIssueNumber#
+			AND SETTI.T105003    = 2
+			AND SETTI.T105004    = 1
+	</select>
+	<!-- Add End 20151010 kameyama -->	
+	
+	<select id="billingAddressInfo" parameterClass="java.util.Map" resultMap="T105Result">
+		SELECT
+            TRIM(T105.T105001) AS T105001,
+            TRIM(T105.T105002) AS T105002,
+            T105.T105003 AS T105003,
+            T105.T105004 AS T105004,
+            T105.T105101 AS T105101,
+            TRIM(T105.T105102) AS T105102,
+            T105.T105103 AS T105103,
+            T105.T105201 AS T105201,
+            T105.T105202 AS T105202,
+            T105.T105203 AS T105203,
+            T105.T105204 AS T105204,
+            T105.T105205 AS T105205,<!-- 2015.8.28 K.Kogashi Add -->
+            TRIM(T105.T105301) AS T105301,
+            T105.T105302 AS T105302,
+            T105.T105303 AS T105303,
+            T105.T105304 AS T105304,
+            T105.T105305 AS T105305,
+            T105.T105306 AS T105306,
+            T105.T105307 AS T105307,
+            T105.T105308 AS T105308,
+            TRIM(T105.T105309) AS T105309,
+            T105.T105310 AS T105310,
+            T105.T105311 AS T105311,
+            T105.T105312 AS T105312,
+            T105.T105313 AS T105313,
+            TRIM(T105.T105314) AS T105314,
+            T105.T105315 AS T105315,
+            TRIM(T105.T105316) AS T105316,
+            T105.T105401 AS T105401,
+            TRIM(T105.CREATOR) AS CREATOR,
+            T105.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(T105.UPDATER) AS UPDATER,
+            T105.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(T105.UPDATE_APP) AS UPDATE_APP,
+            T105.VERSION_NO AS VERSION_NO
+		FROM	
+			T105
+		WHERE	
+			T105.T105001 = #stationCd#
+		AND T105.T105002 = #customerCd#
+		AND T105.T105003 = 3
+    </select>
+	<!-- Add start 20151028 Lamph S1-SMS18705-1.00版 -->
+	<resultMap id="CustomerContractsAddressInfoResult" class="jp.co.hanshin.itec.caty.contract.model.T105EntityModel">
+		<result property="t105201" column="T105201" jdbcType="VARCHAR"/> <!-- カナ氏名 -->
+		<result property="t105202" column="T105202" jdbcType="VARCHAR"/> <!-- 漢字氏名１ -->
+		<result property="t105203" column="T105203" jdbcType="VARCHAR"/> <!-- 漢字氏名２ -->
+		<result property="t105205" column="T105205" jdbcType="VARCHAR"/> <!-- 漢字氏名３ -->
+	</resultMap>
+	<select id="getCustomerContractsAddressInfo"
+			parameterClass="jp.co.hanshin.itec.caty.contract.model.T105EntityModel"
+			resultMap="CustomerContractsAddressInfoResult">
+		SELECT
+			T105.T105201
+			, T105.T105202
+			, T105.T105203
+			, T105.T105205
+		FROM
+			T105
+		WHERE
+			T105.T105001 = #t105001#
+		AND T105.T105002 = #t105002#
+		AND T105.T105003 = 1
+		AND T105.T105004 = 1
+	</select>
+	<!-- Add end 20151028 Lamph S1-SMS18705-1.00版 -->
+	<!-- Add start 20160114 Takemi TASK_WST -->
+	<!-- S1-SMS12103-画面設計書-契約一覧_需要（高圧・低圧）.顧客住所情報取得 -->
+	<resultMap id="CustomerContactAddress" class="jp.co.hanshin.itec.caty.contract.model.T105EntityModel">
+		<result property="t105001" column="T105001" jdbcType="CHAR"/> <!-- 局コード -->
+		<result property="t105002" column="T105002" jdbcType="CHAR"/> <!-- 顧客コード -->
+		<result property="t105003" column="T105003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 区分 -->
+		<result property="t105004" column="T105004" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 区分連番 -->
+		<result property="t105201" column="T105201" jdbcType="VARCHAR"/> <!-- カナ氏名 -->
+		<result property="t105202" column="T105202" jdbcType="VARCHAR"/> <!-- 漢字氏名１ -->
+		<result property="t105203" column="T105203" jdbcType="VARCHAR"/> <!-- 漢字氏名２ -->
+		<result property="t105301" column="T105301" jdbcType="CHAR"/> <!-- 郵便番号 -->
+		<result property="t105302" column="T105302" jdbcType="VARCHAR"/> <!-- 住所１ -->
+		<result property="t105303" column="T105303" jdbcType="VARCHAR"/> <!-- 住所２ -->
+		<result property="t105310" column="T105310" jdbcType="VARCHAR"/> <!-- 集合住宅名 -->
+		<result property="t105311" column="T105311" jdbcType="VARCHAR"/> <!-- ＴＥＬ１ -->
+		<result property="t105401" column="T105401" jdbcType="VARCHAR"/> <!-- 備考 -->
+		<result property="versionNo" column="VERSION_NO" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- バージョン番号 -->
+	</resultMap>
+	<select id="getCustomerContactAddress" parameterClass="jp.co.hanshin.itec.caty.contract.model.T105EntityModel"
+			resultMap="CustomerContactAddress">
+		SELECT
+			*
+		FROM
+			(SELECT
+				TRIM(T105001) AS T105001
+				,TRIM(T105002) AS T105002
+				,T105003
+				,T105004
+				,T105201
+				,T105202
+				,T105203
+				,TRIM(T105301) AS T105301
+				,T105302
+				,T105303
+				,T105310
+				,T105311
+				,T105401
+				,VERSION_NO
+			FROM
+				T105
+			WHERE
+				T105.T105001 = #t105001#
+				AND T105.T105002 = #t105002#
+				AND T105.T105003 = 4
+			ORDER BY
+				T105.T105004 ASC
+			)
+		WHERE
+			ROWNUM = 1
+	</select>
+	<!-- Add end 20160114 Takemi TASK_WST -->
+	
+	<!-- Delete Start 20160307 CATPPSSB-338 A.Miyakawa -->
+	<!-- Add start 20160206 Funao TASK_WST -->
+	<!-- S1-SMS26005-バッチ仕様書-顧客情報取込（SG マイページ）.顧客情報取得 -->
+<!-- 	<resultMap id="GCISCustomers" class="jp.co.hanshin.itec.caty.contract.model.T105EntityModel"> -->
+<!-- 		<result property="t105001" column="T105001" jdbcType="CHAR" /> 局コード -->
+<!-- 		<result property="t105002" column="T105002" jdbcType="CHAR" /> 顧客コード -->
+<!-- 		<result property="t105003" column="T105003" jdbcType="NUMBER" javaType="java.math.BigDecimal" /> 住所区分 -->
+<!-- 		<result property="t105004" column="T105004" jdbcType="NUMBER" javaType="java.math.BigDecimal" /> 住所区分連番 -->
+<!-- 	</resultMap> -->
+<!-- 	<select id="selectGCISCustomersForUpdate" -->
+<!-- 		parameterClass="jp.co.hanshin.itec.caty.contract.model.T105EntityModel" -->
+<!-- 		resultMap="GCISCustomers"> -->
+<!-- 		SELECT  -->
+<!-- 			T105001, -->
+<!-- 			T105002, -->
+<!-- 			T105003, -->
+<!-- 			T105004 -->
+<!-- 		FROM T105 -->
+<!-- 		WHERE T105001 =	#t105001# -->
+<!-- 			AND T105003 = #t105003# -->
+<!-- 			AND T105102 = #t105102# -->
+<!-- 		FOR UPDATE NOWAIT -->
+<!-- 	</select> -->
+	
+<!-- 	<update id="updateMailAddressGCISCustomer" parameterClass="jp.co.hanshin.itec.caty.contract.model.T105EntityModel"> -->
+<!-- 		UPDATE -->
+<!-- 			T105 -->
+<!-- 		SET -->
+<!-- 			T105314 = #t105314#, -->
+<!-- 			UPDATER = #updater#, -->
+<!-- 			UPDATE_TIMESTAMP = #updateTimestamp#, -->
+<!-- 			UPDATE_APP = #updateApp#, -->
+<!-- 			VERSION_NO = VERSION_NO + 1 -->
+<!-- 		WHERE T105001 =	#t105001# -->
+<!-- 			AND T105003 = #t105003# -->
+<!-- 			AND T105102 = #t105102# -->
+<!-- 	</update> -->
+	<!-- Add end 20160206 Funao TASK_WST -->
+	<!-- Delete End 20160307 CATPPSSB-338 A.Miyakawa -->
+	
+	<!-- Add Start 20160307 CATPPSSB-338 A.Miyakawa -->
+	    <select id="selectGCISCustomersAddresses"
+            parameterClass="java.util.Map"
+            resultMap="T105Result">
+        SELECT
+            TRIM(T105.T105001) AS T105001,
+            TRIM(T105.T105002) AS T105002,
+            T105.T105003 AS T105003,
+            T105.T105004 AS T105004,
+            T105.T105101 AS T105101,
+            TRIM(T105.T105102) AS T105102,
+            T105.T105103 AS T105103,
+            T105.T105201 AS T105201,
+            T105.T105202 AS T105202,
+            T105.T105203 AS T105203,
+            T105.T105204 AS T105204,
+            T105.T105205 AS T105205,
+            TRIM(T105.T105301) AS T105301,
+            T105.T105302 AS T105302,
+            T105.T105303 AS T105303,
+            T105.T105304 AS T105304,
+            T105.T105305 AS T105305,
+            T105.T105306 AS T105306,
+            T105.T105307 AS T105307,
+            T105.T105308 AS T105308,
+            TRIM(T105.T105309) AS T105309,
+            T105.T105310 AS T105310,
+            T105.T105311 AS T105311,
+            T105.T105312 AS T105312,
+            T105.T105313 AS T105313,
+            TRIM(T105.T105314) AS T105314,
+            T105.T105315 AS T105315,
+            TRIM(T105.T105316) AS T105316,
+            T105.T105401 AS T105401,
+            TRIM(T105.CREATOR) AS CREATOR,
+            T105.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(T105.UPDATER) AS UPDATER,
+            T105.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(T105.UPDATE_APP) AS UPDATE_APP,
+            T105.VERSION_NO AS VERSION_NO
+        FROM T105
+        WHERE
+           T105.T105001 = #t105001#
+           AND
+           T105.T105002 = #t105002#
+           AND
+           T105.T105003 = #t105003#
+    </select>
+	<!-- Add End 20160307 CATPPSSB-338 A.Miyakawa -->
+	<!-- Add start 20160227 HieuPS -->
+ <resultMap id="ContractorFullNameCommon" class="jp.co.hanshin.itec.caty.contract.model.T105EntityModel">
+  <result property="t105202" column="T105202" jdbcType="VARCHAR"/> <!-- 漢字氏名１ -->
+        <result property="t105203" column="T105203" jdbcType="VARCHAR"/> <!-- 漢字氏名２ -->
+ </resultMap>
+ <select id="contractorFullNameCommonPXB0055Get"
+  parameterClass="java.util.HashMap"
+  resultMap="ContractorFullNameCommon">
+  SELECT 
+   T105.T105202,
+   T105.T105203
+  FROM T105
+  WHERE 
+    T105.T105002 = #customerCd#
+    AND T105.T105003 = 1
+ </select>
+ <!-- Add end 20160227 HieuPS -->
+</sqlMap>

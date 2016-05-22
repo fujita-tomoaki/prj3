@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)Tpe7EntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- TPE7画面設定マスタを扱うためのデータアクセス定義 -->
+<sqlMap namespace="Tpe7EntityDao">
+    
+    <resultMap id="Tpe7Result" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+        <result property="tpe7001" column="TPE7001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="tpe7002" column="TPE7002" jdbcType="CHAR"/> <!-- 画面ＩＤ -->
+        <result property="tpe7003" column="TPE7003" jdbcType="CHAR"/> <!-- 任意設定ＫＥＹ１ -->
+        <result property="tpe7004" column="TPE7004" jdbcType="CHAR"/> <!-- 任意設定ＫＥＹ２ -->
+        <result property="tpe7005" column="TPE7005" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連番 -->
+        <result property="tpe7101" column="TPE7101" jdbcType="VARCHAR"/> <!-- 任意設定値１ -->
+        <result property="tpe7102" column="TPE7102" jdbcType="VARCHAR"/> <!-- 任意設定値２ -->
+        <result property="tpe7103" column="TPE7103" jdbcType="VARCHAR"/> <!-- 任意設定値３ -->
+        <result property="creator" column="CREATOR" jdbcType="CHAR"/> <!-- 登録者(SYS) -->
+        <result property="createTimestamp" column="CREATE_TIMESTAMP" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 登録日(SYS) -->
+        <result property="updater" column="UPDATER" jdbcType="CHAR"/> <!-- 更新者(SYS) -->
+        <result property="updateTimestamp" column="UPDATE_TIMESTAMP" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 更新日(SYS) -->
+        <result property="updateApp" column="UPDATE_APP" jdbcType="CHAR"/> <!-- 更新APP(SYS) -->
+        <result property="versionNo" column="VERSION_NO" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- バージョン番号(SYS) -->
+    </resultMap>
+    
+     <resultMap id="tpe7EntityResult" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+		<result property="tpe7004" column="TPE7004" jdbcType="CHAR"/>
+		<result property="tpe7101" column="TPE7101" jdbcType="CHAR"/>
+	</resultMap>
+	
+	<!-- 大垣向けカスタマイズ 2014/06/05 Phuongntd START -->
+	<resultMap id="billConvinienceStoreData" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+		<result property="tpe7101" column="TPE7101" jdbcType="CHAR"/>
+		<result property="tpe7102" column="TPE7102" jdbcType="CHAR"/>
+	</resultMap>
+	<!-- 大垣向けカスタマイズ 2014/06/05 Phuongntd END -->
+	<!--     ADD START 20140801 TaiHK AT #1046 -->
+    <resultMap id="screenSettingMasterAcquisitionGetResultList" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+        <result property="tpe7004" column="TPE7004" jdbcType="VARCHAR" />
+        <result property="tpe7005" column="TPE7005" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+        <result property="tpe7101" column="TPE7101" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--     ADD END 20140801 TaiHK AT #1046 -->
+	<!-- Start CXK0106指示内容入力サブウィンドウ -->
+	<resultMap id="constructionInstructionTypeGetResult" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+		<result property="tpe7101" column="TPE7101" jdbcType="VARCHAR" />
+        <result property="tpe7102" column="TPE7102" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="instructionContentGetResult" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+		<result property="tpe7101" column="TPE7101" jdbcType="VARCHAR" />
+        <result property="tpe7102" column="TPE7102" jdbcType="VARCHAR" />
+        <result property="tpe7103" column="TPE7103" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- End CXK0106指示内容入力サブウィンドウ -->
+    
+    <!-- 任意に指定された検索キーでTPE7画面設定マスタを取得する -->
+    <select id="getDisplayConfigMasterList"
+            parameterClass="jp.co.hanshin.itec.caty.master.model.BaseTpe7EntityModel"
+            resultMap="Tpe7Result">
+        SELECT
+            TRIM(TPE7.TPE7001) AS TPE7001,
+            TPE7.TPE7002 AS TPE7002,
+            TPE7.TPE7003 AS TPE7003,
+            TPE7.TPE7004 AS TPE7004,
+            TPE7.TPE7005 AS TPE7005,
+            TPE7.TPE7101 AS TPE7101,
+            TPE7.TPE7102 AS TPE7102,
+            TPE7.TPE7103 AS TPE7103,
+            TRIM(TPE7.CREATOR) AS CREATOR,
+            TPE7.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(TPE7.UPDATER) AS UPDATER,
+            TPE7.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(TPE7.UPDATE_APP) AS UPDATE_APP,
+            TPE7.VERSION_NO AS VERSION_NO
+        FROM TPE7
+        WHERE
+           TPE7.TPE7001 = #tpe7001#
+		   AND
+           TPE7.TPE7002 = #tpe7002#
+           <isNotNull prepend="AND" property="tpe7003">
+    	       TPE7.TPE7003 = #tpe7003#
+           </isNotNull>
+           <isNotNull prepend="AND" property="tpe7004">
+	           TPE7.TPE7004 = #tpe7004#
+           </isNotNull>
+        <!-- CATPPS-634 20151220 K.Harada add start -->
+        ORDER BY
+           TPE7.TPE7001,
+           TPE7.TPE7002,
+           TPE7.TPE7003,
+           TPE7.TPE7004,
+           TPE7.TPE7005
+        <!-- CATPPS-634 20151220 K.Harada add end -->
+    </select>
+
+   	<!-- 主キーで指定されたTPE7画面設定マスタを取得する -->
+    <select id="getDisplayConfigMaster"
+            parameterClass="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel"
+            resultMap="Tpe7Result">
+        SELECT
+            TRIM(TPE7.TPE7001) AS TPE7001,
+            TRIM(TPE7.TPE7002) AS TPE7002,
+            TRIM(TPE7.TPE7003) AS TPE7003,
+            TRIM(TPE7.TPE7004) AS TPE7004,
+            TPE7.TPE7005 AS TPE7005,
+            TPE7.TPE7101 AS TPE7101,
+            TPE7.TPE7102 AS TPE7102,
+            TPE7.TPE7103 AS TPE7103,
+            TRIM(TPE7.CREATOR) AS CREATOR,
+            TPE7.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(TPE7.UPDATER) AS UPDATER,
+            TPE7.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(TPE7.UPDATE_APP) AS UPDATE_APP,
+            TPE7.VERSION_NO AS VERSION_NO
+        FROM TPE7
+        WHERE
+           TRIM(TPE7.TPE7001) = #tpe7001#
+           AND
+           TRIM(TPE7.TPE7002) = #tpe7002#
+           AND
+           TRIM(TPE7.TPE7003) = #tpe7003#
+           AND
+           TRIM(TPE7.TPE7004) = #tpe7004#
+           AND
+           TPE7.TPE7005 = #tpe7005#
+    </select>
+    
+    <select id="getInitDisplayMasterDataList" parameterClass="java.util.Map" resultMap="Tpe7Result">
+		SELECT
+			TPE7.TPE7001 AS TPE7001,
+			TPE7.TPE7002 AS TPE7002,
+			TPE7.TPE7003 AS TPE7003,
+			TPE7.TPE7004 AS TPE7004,
+			TPE7.TPE7005 AS TPE7005,
+			TPE7.TPE7101 AS TPE7101,
+			TPE7.TPE7102 AS TPE7102,
+			TPE7.TPE7103 AS TPE7103,
+			TPE7.CREATOR AS CREATOR,
+			TPE7.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+			TPE7.UPDATER AS UPDATER,
+			TPE7.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+			TPE7.UPDATE_APP AS UPDATE_APP,
+			TPE7.VERSION_NO AS VERSION_NO
+		FROM TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = #displayId#
+			AND TPE7.TPE7003 = #billClass#
+	        AND	TPE7.TPE7004 IN('IssueDiv','IssueForm','IssueAddress','IssueDetailDiv','IssuePutDiv','ReminderDiv','ReminderForm')
+	        AND TPE7.TPE7005 = 1
+    </select>
+
+	<select id="initialApplicationDvnInfoGet" parameterClass="java.lang.String" resultMap="tpe7EntityResult">
+		SELECT
+			TPE7.TPE7004,
+			TPE7.TPE7101
+		FROM 
+			TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+
+<!-- CATFNL-3135 2014/12/03 M.Kimino [Chg] Start   -->
+<!--			AND TPE7.TPE7002 = 'CYAM414'       -->
+<!--			AND TPE7.TPE7003 = 'DEFAULT_ENTRY' -->
+			AND TPE7.TPE7002 = 'PUBLIC'
+			AND TPE7.TPE7003 = 'KDDI_APP_INIT_VAL'
+<!-- CATFNL-3135 2014/12/03 M.Kimino [Chg] End -->			
+			
+	</select>
+
+     <select id="thisMonthTotalCalculationFlagGet" resultClass="String" parameterClass="java.util.HashMap">
+	  SELECT						
+		TPE7.TPE7101					
+						
+      FROM TPE7						
+			
+  	  WHERE						
+		TPE7.TPE7001 = #stationCd#				
+	  AND 		TPE7.TPE7002 = 'PUBLIC'				
+	  AND 		TPE7.TPE7003 = 'f_GokeiFlg'				
+	  AND 		TPE7.TPE7004 = '00000000000000000000'				
+	  AND 		TPE7.TPE7005 = 1				
+			
+	</select>
+    <select id="totalCalculationFlgThisMonthGet" resultClass="String" parameterClass="java.util.Map">
+    	SELECT
+			TPE7101
+		FROM TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = #screenId#
+			AND TPE7.TPE7003 = #settingKey1#
+			AND TPE7.TPE7004 = #settingKey2#
+			AND TPE7.TPE7005 = #seqNo#
+    </select>
+
+     <select id="serviceTypeCanCourseChangeGet" resultClass="String" parameterClass="java.util.HashMap">
+      SELECT
+        TPE7.TPE7101
+      FROM TPE7
+      WHERE
+        TPE7.TPE7001 = #stationCd#
+      AND       TPE7.TPE7002 = 'CYAM419'
+      AND       TPE7.TPE7003 = 'BUNRUI'
+      AND       TPE7.TPE7004 = '00000000000000000000'
+      AND       TPE7.TPE7005 = 1
+    </select>
+    <!-- 大垣向けカスタマイズ 2014/06/05 Phuongntd START -->
+    <select id="getBillConvinienceStoreData" parameterClass="java.util.Map" resultMap="billConvinienceStoreData" >
+    	SELECT
+			TPE7101,
+			TPE7102
+		FROM TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = #screenId#
+			AND TPE7.TPE7003 = #settingKey1#
+			AND TPE7.TPE7004 = #settingKey2#
+		ORDER BY TPE7.TPE7005
+	</select>
+    <!-- 大垣向けカスタマイズ 2014/06/05 Phuongntd END -->
+
+<!-- Add start 20140723 H.Kawamoto [Ver5対応] -->
+    <!-- TPE7画面設定マスタ定義 -->
+    <resultMap id="findScreenList" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+        <result property="tpe7001" column="TPE7001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="tpe7002" column="TPE7002" jdbcType="CHAR"/> <!-- 画面ＩＤ -->
+        <result property="tpe7003" column="TPE7003" jdbcType="CHAR"/> <!-- 任意設定ＫＥＹ１ -->
+        <result property="tpe7004" column="TPE7004" jdbcType="CHAR"/> <!-- 任意設定ＫＥＹ２ -->
+        <result property="tpe7005" column="TPE7005" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連番 -->
+        <result property="tpe7101" column="TPE7101" jdbcType="VARCHAR"/> <!-- 任意設定値１ -->
+        <result property="tpe7102" column="TPE7102" jdbcType="VARCHAR"/> <!-- 任意設定値２ -->
+        <result property="tpe7103" column="TPE7103" jdbcType="VARCHAR"/> <!-- 任意設定値３ -->
+        <result property="creator" column="CREATOR" jdbcType="CHAR"/> <!-- 登録者(SYS) -->
+        <result property="createTimestamp" column="CREATE_TIMESTAMP" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 登録日(SYS) -->
+        <result property="updater" column="UPDATER" jdbcType="CHAR"/> <!-- 更新者(SYS) -->
+        <result property="updateTimestamp" column="UPDATE_TIMESTAMP" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 更新日(SYS) -->
+        <result property="updateApp" column="UPDATE_APP" jdbcType="CHAR"/> <!-- 更新APP(SYS) -->
+        <result property="versionNo" column="VERSION_NO" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- バージョン番号(SYS) -->
+    </resultMap>
+    
+    <!-- 主キーで指定されたTPE7画面設定マスタを取得する -->
+    <select id="findScreenList"
+            parameterClass="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel"
+            resultMap="findScreenList">
+        SELECT
+            TRIM(TPE7.TPE7001) AS TPE7001,
+            TRIM(TPE7.TPE7002) AS TPE7002,
+            TRIM(TPE7.TPE7003) AS TPE7003,
+            TRIM(TPE7.TPE7004) AS TPE7004,
+            TPE7.TPE7005 AS TPE7005,
+            TPE7.TPE7101 AS TPE7101,
+            TPE7.TPE7102 AS TPE7102,
+            TPE7.TPE7103 AS TPE7103,
+            TRIM(TPE7.CREATOR) AS CREATOR,
+            TPE7.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(TPE7.UPDATER) AS UPDATER,
+            TPE7.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(TPE7.UPDATE_APP) AS UPDATE_APP,
+            TPE7.VERSION_NO AS VERSION_NO
+        FROM TPE7
+        WHERE
+           TRIM(TPE7.TPE7001) = #tpe7001#
+           AND
+           TRIM(TPE7.TPE7002) = #tpe7002#
+           AND
+           TRIM(TPE7.TPE7003) = #tpe7003#
+           AND
+           TRIM(TPE7.TPE7004) = #tpe7004#
+		ORDER BY TPE7005
+    </select>
+<!-- Add end 20140723 H.Kawamoto [Ver5対応] -->
+	<select id="initialValueCheckInfoGet" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+	SELECT
+	TPE7.TPE7005
+	, TPE7.TPE7101
+	FROM
+	TPE7
+	WHERE
+	TPE7.TPE7001 = #stationCd#
+	AND TPE7.TPE7002 = 'CYAM111'
+	AND TPE7.TPE7003 = 'CHECK_INITIAL'
+	</select>
+
+	<!-- Start CXK0106指示内容入力サブウィンドウ -->
+    <select id="constructionInstructionTypeGet" parameterClass="java.util.Map" resultMap="constructionInstructionTypeGetResult">
+		SELECT
+			 TPE7.TPE7101,
+			 TPE7.TPE7102
+		FROM
+			TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = 'PUBLIC'
+			AND TPE7.TPE7003 = 'CONDIRECTIONTYPE'
+			AND TPE7.TPE7004 = #constructionClassificationCd#
+		ORDER BY
+			TPE7.TPE7101
+	</select>
+	<select id="constructionEquipmentTypeGet" parameterClass="java.util.Map" resultMap="constructionInstructionTypeGetResult">
+		SELECT
+			 TPE7.TPE7101,
+			 TPE7.TPE7102
+		FROM
+			TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = 'PUBLIC'
+			AND TPE7.TPE7003 = 'CONSTRUCTIONTYPE'
+			AND TPE7.TPE7004 = #acquiredConstructionInstructionTypeCd#
+		ORDER BY
+			 TPE7.TPE7005
+	</select>
+	<select id="contractServiceClassificationGet" parameterClass="java.util.Map" resultMap="constructionInstructionTypeGetResult">
+		SELECT
+			 TPE7.TPE7101,
+			 TPE7.TPE7102
+		FROM
+			TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = 'PUBLIC'
+			AND TPE7.TPE7003 = 'CONSERVICECLASS'
+			AND TPE7.TPE7004 = #acquiredConstructionInstructionTypeCd#
+		ORDER BY
+			TPE7.TPE7101
+	</select>
+	<select id="constructionWorkContentGet" parameterClass="java.util.Map" resultMap="constructionInstructionTypeGetResult">
+		SELECT
+			 TPE7.TPE7101,
+			 TPE7.TPE7102
+		FROM
+			TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = 'PUBLIC'
+			AND TPE7.TPE7003 = 'CONDIRECTIONTYPE'
+			AND TPE7.TPE7004 = 'CONTENT'
+		ORDER BY
+			TPE7.TPE7101
+	</select>
+	<select id="instructionContentGet" parameterClass="java.util.Map" resultMap="instructionContentGetResult">
+		SELECT
+			 TPE7.TPE7101,
+			 TPE7.TPE7102,
+			 TPE7.TPE7103
+		FROM
+			TPE7
+		WHERE
+			TPE7.TPE7001 = #stationCd#
+			AND TPE7.TPE7002 = 'PUBLIC'
+			AND TPE7.TPE7003 = 'CONDIRECTIONTYPE'
+			AND TPE7.TPE7004 = #acquiredConstructionInstructionTypeCd#
+	</select>
+    <!-- End CXK0106指示内容入力サブウィンドウ -->
+
+	<!-- Add - FPT-AnhMV - CXK0103 -->
+	<select id="constructionClassificationAddressReflection" parameterClass="java.util.Map" resultClass="java.lang.String">
+		SELECT
+				TPE7.TPE7101
+			FROM
+				TPE7
+			WHERE
+				TPE7.TPE7001 = #stationCd#
+				AND TPE7.TPE7002 = 'PUBLIC'
+				AND TPE7.TPE7003 = 'REFCONSTRUCTIONCLASS'
+				AND TPE7.TPE7004 = 'CONTENT'
+			ORDER BY
+				TPE7.TPE7101
+	</select>
+
+	<select id="reasonChange" parameterClass="java.util.Map" resultClass="java.lang.String">
+		SELECT
+				TPE7.TPE7101
+			FROM
+				TPE7
+			WHERE
+				TPE7.TPE7001 = #stationCd#
+				AND TPE7.TPE7002 = 'PUBLIC'
+				AND TPE7.TPE7003 = 'CHANGEREASON'
+				AND TPE7.TPE7004 = 'CONTENT'
+				AND TPE7.TPE7005 = 1
+			ORDER BY
+				TPE7.TPE7101
+	</select>
+	<!-- End - FPT-AnhMV - CXK0103 -->
+	<!--   ADD START 20140801 TaiHK AT #1046 -->
+    <select id="screenSettingMasterAcquisition" parameterClass="java.util.Map" resultMap="screenSettingMasterAcquisitionGetResultList">
+        SELECT
+              TPE7004,
+              TPE7005,
+              TPE7101
+            FROM 
+              TPE7
+            WHERE
+              TPE7001 =  #stationCd#
+<!-- CATFNL-2186 #SETP1-2190 2014/08/13 H.Shigenaga [Chg] Start -->
+              AND TPE7002 =  'PUBLIC'
+<!-- CATFNL-2186 #SETP1-2190 2014/08/13 H.Shigenaga [Chg] End -->
+              AND TPE7003 =   #arbitrarySettingKEY1#
+    </select>
+   <!--    ADD END 20140801 TaiHK AT #1046 -->
+   
+   <!-- Add Start 20140806 PhucLD1 AT:1045 -->
+    <resultMap id="settingMasterAcquisitionResult" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+        <result property="tpe7004" column="TPE7004" jdbcType="VARCHAR" />
+        <result property="tpe7005" column="TPE7005" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+        <result property="tpe7101" column="TPE7101" jdbcType="VARCHAR"/>
+    </resultMap>
+     <select id="getSettingMasterAcquisition" parameterClass="java.util.Map" resultMap="settingMasterAcquisitionResult">
+       	SELECT																										
+			TPE7004,
+			TPE7005,
+			TPE7101																												
+		FROM TPE7
+		WHERE
+			TPE7001 = #stationCd#
+		AND TPE7002 = 'PUBLIC'
+		AND TPE7003 = #key1#
+    </select>
+   <!-- Add End 20140806 PhucLD1 AT:1045 -->
+   
+   <!-- Add Start 20150930 m.yakabi 電力対応 -->
+   <!-- スイッチング支援システム通信設定情報を取得 -->
+   <resultMap id="setSwitchingSystemCommunicationSettingInfoResult" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+       <result property="tpe7004" column="TPE7004" jdbcType="VARCHAR" />
+       <result property="tpe7101" column="TPE7101" jdbcType="VARCHAR"/>
+   </resultMap>
+   <select id="getSwitchingSystemCommunicationSettingInfo" parameterClass="java.lang.String" resultMap="setSwitchingSystemCommunicationSettingInfoResult">
+   		SELECT
+   			TPE7004,
+   			TPE7101
+   		FROM TPE7
+   		WHERE
+   			TPE7.TPE7001 = #stationCd#
+   			AND
+   			TPE7.TPE7002 = 'SXA0023'
+   			AND
+   			TPE7.TPE7003 = 'SW_COMUNICATION_SET'
+   </select>
+   <!-- Add End 20150930 m.yakabi 電力対応 -->
+   <!-- Add start 20160203 TuTM2 -->
+   <resultMap id="masterSettingScreenPXB0060Result" class="jp.co.hanshin.itec.caty.master.model.Tpe7EntityModel">
+       <result property="tpe7004" column="TPE7004" jdbcType="VARCHAR"/>
+       <result property="tpe7101" column="TPE7101" jdbcType="VARCHAR"/>
+   </resultMap>
+   <select id="masterSettingScreenPXB0060Get" parameterClass="java.util.Map" resultMap="masterSettingScreenPXB0060Result">
+        SELECT
+            TPE7.TPE7004,
+            TPE7.TPE7101
+        FROM
+            TPE7
+        WHERE
+            TPE7.TPE7001 = #stationCd#
+            AND TPE7.TPE7002 = #batchId#
+            AND TPE7.TPE7003 = 'OUTPUT_PARAMETER'
+            AND TPE7.TPE7004 IN ('OUTPUT_PATH' , 'FILE_NAME' , 'EXTEND_NAME')
+            AND TPE7.TPE7005 = 1
+   </select>
+   <!-- Add end 20160203 TuTM2 -->
+    <!-- Add Start 20160202 ThanhNT35 -->
+    <select id="getOutputDestPXB0057" parameterClass="java.lang.String" resultClass="java.lang.String">
+    SELECT TPE7.TPE7101
+    FROM TPE7
+    WHERE TPE7001 = #stationCd#
+    AND TPE7002 = 'PUBLIC'
+    AND TPE7003 = 'FORM_OUTPUT_PATH'
+    AND TPE7004 = 'NO_PAYMENT_TOTAL'
+    </select>
+    <!-- Add End 20160202 ThanhNT35 -->
+    <!-- Add start 20160218 DauPV1 -->
+    <select id="outputDestPXB0056Get" parameterClass="java.lang.String" resultClass="java.lang.String">
+    SELECT TPE7.TPE7101
+    FROM TPE7
+    WHERE TPE7001 = #stationCd#
+        AND TPE7002 = 'PUBLIC'
+        AND TPE7003 = 'FORM_OUTPUT_PATH'
+        AND TPE7004 = 'Unclaimed'
+   </select>
+   <!-- Add End 20160218 DauPV1 -->
+    <!-- Add Start 20160222 ThangBN -->
+    <select id="outputDestPXB0054Get" parameterClass="java.lang.String" resultClass="java.lang.String">
+    SELECT TPE7.TPE7101
+    FROM TPE7
+    WHERE TPE7001 = #stationCd#
+    AND TPE7002 = 'PUBLIC'
+    AND TPE7003 = 'FORM_OUTPUT_PATH'
+    AND TPE7004 = 'arbitration_pay_off'
+    </select>
+    <!-- Add End 20160222 ThangBN -->
+    <!-- Add Start 20160225 TriLD -->
+    <select id="outputDestObtainPXB0054Get" parameterClass="java.lang.String" resultClass="java.lang.String">
+        SELECT
+            TPE7.TPE7101
+        FROM
+            TPE7
+        WHERE
+            TPE7001 = #stationCd#
+            AND TPE7002 = 'PUBLIC'
+            AND TPE7003 = 'FORM_OUTPUT_PATH'
+            AND TPE7004 = 'arbitration_ele'
+    </select>
+    <!-- Add End 20160225 TriLD -->
+           <!-- Add start 20160218 DauPV1 -->
+    <select id="outputDestPXB0055ExchangeReportGet" parameterClass="java.lang.String" resultClass="java.lang.String">
+    SELECT TPE7.TPE7101
+    FROM TPE7
+    WHERE TPE7001 = #stationCd#
+        AND TPE7002 = 'PUBLIC'
+        AND TPE7003 = 'FORM_OUTPUT_PATH'
+        AND TPE7004 = 'Monthly report'
+   </select>
+   <!-- Add End 20160218 DauPV1 -->
+   <!-- Add start 20160225 HieuPS -->
+    <select id="outputDestPXB0055Get" parameterClass="java.lang.String" resultClass="java.lang.String">
+    SELECT 
+      TPE7.TPE7101
+    FROM TPE7
+    WHERE TPE7001 = #stationCd#
+        AND TPE7002 = 'PUBLIC'
+        AND TPE7003 = 'FORM_OUTPUT_PATH'
+        AND TPE7004 = 'Monthly report'
+   </select>
+   <!-- Add End 20160225 HieuPS -->
+       <!-- Add start 20160223 TuTM2 -->
+    <select id="ouputPathPXB0059Get" parameterClass="java.lang.String" resultClass="java.lang.String">
+        SELECT
+            TPE7.TPE7101
+        FROM
+            TPE7
+        WHERE
+        TPE7001 = #stationCd#
+        AND TPE7002 = 'PUBLIC'
+        AND TPE7003 = 'FORM_OUTPUT_PATH'
+        AND TPE7004 = 'Arbitration_monthly' -->
+
+   </select>
+    <!-- Add end 20160223 TuTM2 -->
+</sqlMap>

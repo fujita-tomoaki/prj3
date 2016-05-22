@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)GetSwitchingContractInfocontractServiceDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- 契約管理サービスDAOを扱うためのデータアクセス定義 -->
+<sqlMap namespace="contractServiceDao">
+    <!-- ParameterMap(iBatisが空の属性がないとパースエラーとなるためダミーを定義) -->
+    <parameterMap id="dummy" class="java.lang.String">
+        <parameter property="name" />
+    </parameterMap>
+    <resultMap id="GetSwitchingContractInfoResult" class="jp.co.hanshin.itec.caty.contract.model.GetSwitchingContractInfoResult">            
+        <result property="stationCd" column="TE11001" jdbcType="CHAR" /> <!-- 局コード -->            
+        <result property="customerCd" column="TE11002" jdbcType="CHAR" /> <!-- 顧客コード -->            
+        <result property="seqNo" column="TE11003" jdbcType="NUMERIC" /> <!-- サービス連番 -->            
+        <result property="pointIdentificationNumber" column="TE11101" jdbcType="CHAR" /> <!-- 地点特定番号 -->            
+        <result property="transportaionScheduledStartDate" column="TE11102" jdbcType="CHAR" /> <!-- 接続開始予定日 -->            
+        <result property="transportaionScheduledEndDate" column="TE11103" jdbcType="CHAR" /> <!-- 接続廃止予定日 -->            
+        <result property="oldCompanyCd" column="TE11104" jdbcType="CHAR" /> <!-- 旧小売事業者コード -->            
+        <result property="oldCompanyCustomerCd" column="TE11105" jdbcType="VARCHAR"/> <!-- 旧小売事業者お客様番号 -->            
+        <result property="agreement" column="TE11106" jdbcType="NUMERIC" /> <!-- 送約款規定に基づく遵守承諾 -->            
+        <result property="facilityInfoChangedClass" column="TE11107" jdbcType="NUMERIC" /> <!-- 設備情報変更有無区分 -->            
+        <result property="facilityRemovalDate" column="TE11109" jdbcType="CHAR" /> <!-- 設備撤去日 -->            
+        <result property="constructionScheduledTime" column="TE11111" jdbcType="CHAR" /> <!-- 施工希望時刻 -->            
+        <result property="onSiteWitnessing" column="TE11112" jdbcType="NUMERIC" /> <!-- 立会可否 -->            
+        <result property="onSiteWitnessingPreferredDate" column="TE11113" jdbcType="CHAR" /> <!-- 立会希望日 -->            
+        <result property="onSiteWitnessingPreferredTime" column="TE11114" jdbcType="CHAR" /> <!-- 立会希望時刻 -->            
+        <result property="witness" column="TE11115" jdbcType="VARCHAR" /> <!-- 立会者氏名 -->            
+        <result property="applicantClass" column="TE11116" jdbcType="CHAR" /> <!-- 申込者（区分） -->            
+        <result property="applicantName" column="TE11117" jdbcType="VARCHAR" /> <!-- 申込者氏名 -->            
+        <result property="applicantContactTelClass" column="TE11118" jdbcType="CHAR" /> <!-- 申込者ご連絡先電話番号（区分） -->            
+        <result property="applicantContactTelAreaCode" column="TE11119" jdbcType="VARCHAR" /> <!-- 申込者ご連絡先電話番号（市外局番） -->            
+        <result property="applicantContactTelcityNumber" column="TE11120" jdbcType="VARCHAR" /> <!-- 申込者ご連絡先電話番号（市内局番） -->    
+        <result property="applicantContactTelSubscriberNumber" column="TE11121" jdbcType="VARCHAR" /> <!-- 申込者ご連絡先電話番号（加入者番号） -->  
+        <result property="powerTransmissionServiceMenu" column="TE11123" jdbcType="NUMERIC" /> <!-- 接続送電サービスメニュー -->                    
+        <result property="contractDeterminationMethod" column="TE11124" jdbcType="CHAR" /> <!-- 契約決定方法 -->        
+        <result property="abolitionReason" column="TE11125" jdbcType="NUMERIC" /> <!-- 廃止理由 -->        
+        <result property="buildingDemolition" column="TE11126" jdbcType="NUMERIC" /> <!-- 建物解体有無 -->        
+        <result property="demolitionScheduledDate" column="TE11127" jdbcType="CHAR" /> <!-- 解体予定日 -->        
+        <result property="demolitionScheduledTime" column="TE11128" jdbcType="CHAR" /> <!-- 解体予定時刻 -->        
+        <result property="movingInScheduledTime" column="TE11129" jdbcType="CHAR" /> <!--入居予定時刻 -->        
+        <result property="contractChangeScheduledDate" column="TE11130" jdbcType="CHAR" /> <!-- 契約変更予定年月日 -->        
+        <result property="desiredContractCurrent" column="TE11131" jdbcType="CHAR" /> <!-- 契約電流希望 -->        
+        <result property="contactNecessity" column="TE11132" jdbcType="NUMERIC" /> <!-- 出向前連絡要否 -->        
+        <result property="meterReadingDay" column="TE11133" jdbcType="NUMERIC" /> <!-- 検針日の選択 -->
+        <result property="witnessDesiredTime" column="TE11134" jdbcType="CHAR" /> <!-- 立会希望時刻(アンペア変更) -->        
+        <result property="contractCd" column="T101102" jdbcType="CHAR" /> <!-- 契約者コード -->            
+    </resultMap>            
+    <select id="getSwitchingContractInfo"            
+        parameterClass="java.util.Map" resultMap="GetSwitchingContractInfoResult">
+        SELECT
+          TE11001
+          , TE11002
+          , TE11003
+          , TE11101
+          , TE11102
+          , TE11103
+          , TE11104
+          , TE11105
+          , TE11106
+          , TE11107
+          , TE11109
+          , TE11111
+          , TE11112
+          , TE11113
+          , TE11114
+          , TE11115
+          , TE11116
+          , TE11117
+          , TE11118
+          , TE11119
+          , TE11120
+          , TE11121
+          , TE11123
+          , TE11124
+          , TE11125
+          , TE11126
+          , TE11127
+          , TE11128
+          , TE11129
+          , TE11130
+          , TE11131
+          , TE11132
+          , TE11133
+          , TE11134
+          , T101102 
+        FROM
+          TE11 
+          INNER JOIN T101 
+            ON ( 
+              TE11.TE11001 = T101.T101001 
+              AND TE11.TE11002 = T101.T101002
+            ) 
+        WHERE
+          TE11.TE11001 = #stationCd# 
+          AND TE11.TE11002 = #customerCd# 
+          AND TE11.TE11003 = #seqNo#
+    </select>
+</sqlMap>

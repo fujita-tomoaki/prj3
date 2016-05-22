@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.common.dao.customTe76Mapper" >
+
+    <!-- 廃止取次番号から廃止取次情報を取得する -->
+    <select id="findByAbolitionAgencyNoForAbolitionAgencyInfo" parameterType="java.util.Map" resultMap="com.common.dao.model.Te76">
+    	SELECT
+			TRIM(TE76001) AS TE76001,
+			TE76002,
+			TRIM(TE76101) AS TE76101,
+			TE76102,
+			TRIM(TE76201) AS TE76201,
+			TRIM(TE76202) AS TE76202,
+			TE76203,
+			TRIM(TE76204) AS TE76204,
+			TE76205,
+			TRIM(TE76206) AS TE76206,
+			TE76207,
+			TE76208,
+			TE76209,
+			TE76210,
+			TE76211,
+			TRIM(TE76212) AS TE76212,
+			TRIM(TE76213) AS TE76213,
+			TE76214,
+			TE76215,
+			TE76216,
+			TE76217,
+			TE76218,
+			TE76219,
+			TE76220,
+			TE76221,
+			TE76222,
+			TRIM(TE76223) AS TE76223,
+			TRIM(TE76224) AS TE76224			
+		FROM
+			te76
+		WHERE
+			te76.te76001 = #te76001#
+		AND
+			te76.te76201 = #te76201#
+    </select>
+</mapper>

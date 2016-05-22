@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)Te72EntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- TE72スイッチング業務処理状況確認を扱うためのデータアクセス定義 -->
+<sqlMap namespace="Te72EntityDao">
+    <!-- ParameterMap(iBatisが空の属性がないとパースエラーとなるためダミーを定義 定義を追加した後、削除してください) -->
+    <parameterMap id="dummy" class="java.lang.String">
+        <parameter property="name" />
+    </parameterMap>
+    
+    <!-- Add Start 20151009 m.yakabi 電力対応 -->
+    <resultMap id="setAfBizProcStatusCheckLinkRequestInfoResult" class="jp.co.hanshin.itec.caty.contract.model.Te72EntityModel">
+        <result property="te72101" column="TE72101" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理中業務処理状況確認連番 -->
+    </resultMap>
+    
+    <!-- 業務処理状況確認情報取得 -->
+    <select id="getAfBizProcStatusCheckLinkRequestInfo" parameterClass="java.lang.String" resultMap="setAfBizProcStatusCheckLinkRequestInfoResult">
+        SELECT
+			TE72101
+		FROM
+			TE72
+		WHERE
+			TE72.TE72001 = #stationCd#
+    </select>
+    <!-- Add End 20151009 m.yakabi 電力対応 -->
+    
+</sqlMap>

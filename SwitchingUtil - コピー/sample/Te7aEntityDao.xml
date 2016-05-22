@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)Te7aEntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- TE7Aスイッチング連携拡張項目を扱うためのデータアクセス定義 -->
+<sqlMap namespace="Te7aEntityDao">
+
+    <!-- スイッチング連携拡張項目（要求）を取得する。-->
+    <resultMap id="ExtensionItemInfoResult" class="jp.co.hanshin.itec.caty.contract.model.Te7aEntityModel">
+        <result property="te7a001" column="TE7A001" jdbcType="CHAR"/> <!-- 局コード (FK) -->
+        <result property="te7a002" column="TE7A002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号 (FK) -->
+        <result property="te7a003" column="TE7A003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号連番 (FK) -->
+        <result property="te7a004" column="TE7A004" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 区分 -->
+        <result property="te7a005" column="TE7A005" jdbcType="VARCHAR"/> <!-- データ項目名 -->
+        <result property="te7a101" column="TE7A101" jdbcType="VARCHAR"/> <!-- 値 -->
+    </resultMap>
+    <select id="findByExtensionItemInfo"
+            parameterClass="java.util.Map"
+            resultMap="ExtensionItemInfoResult">
+        SELECT
+            TRIM(TE7A.TE7A001) AS TE7A001,
+            TE7A.TE7A002 AS TE7A002,
+            TE7A.TE7A003 AS TE7A003,
+            TE7A.TE7A004 AS TE7A004,
+            TE7A.TE7A005 AS TE7A005,
+            TE7A.TE7A101 AS TE7A101
+        FROM TE7A
+        WHERE
+           TE7A.TE7A001 = #te7a001#
+           AND
+           TE7A.TE7A002 = #te7a002#
+           AND
+           TE7A.TE7A003 = #te7a003#
+           AND
+           TE7A.TE7A004 = 0
+    </select>
+
+</sqlMap>

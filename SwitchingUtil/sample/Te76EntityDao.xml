@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)Te76EntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- TE76スイッチング廃止取次を扱うためのデータアクセス定義 -->
+<sqlMap namespace="Te76EntityDao">
+    <!-- ParameterMap(iBatisが空の属性がないとパースエラーとなるためダミーを定義 定義を追加した後、削除してください) -->
+    <parameterMap id="dummy" class="java.lang.String">
+        <parameter property="name" />
+    </parameterMap>
+    <resultMap id="setFindByAbolitionAgencyNoForAbolitionAgencyInfoResult" class="jp.co.hanshin.itec.caty.contract.model.Te76EntityModel">
+        <result property="te76001" column="te76001" jdbcType="CHAR"/>
+        <result property="te76002" column="te76002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+        <result property="te76101" column="te76101" jdbcType="CHAR"/>
+        <result property="te76102" column="te76102" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+        <result property="te76201" column="te76201" jdbcType="CHAR"/>
+        <result property="te76202" column="te76202" jdbcType="CHAR"/>
+        <result property="te76203" column="te76203" jdbcType="VARCHAR"/>
+        <result property="te76204" column="te76204" jdbcType="CHAR"/>
+        <result property="te76205" column="te76205" jdbcType="VARCHAR"/>
+        <result property="te76206" column="te76206" jdbcType="CHAR"/>
+        <result property="te76207" column="te76207" jdbcType="VARCHAR"/>
+        <result property="te76208" column="te76208" jdbcType="VARCHAR"/>
+        <result property="te76209" column="te76209" jdbcType="VARCHAR"/>
+        <result property="te76210" column="te76210" jdbcType="VARCHAR"/>
+        <result property="te76211" column="te76211" jdbcType="VARCHAR"/>
+        <result property="te76212" column="te76212" jdbcType="CHAR"/>
+        <result property="te76213" column="te76213" jdbcType="CHAR"/>
+        <result property="te76214" column="te76214" jdbcType="VARCHAR"/>
+        <result property="te76215" column="te76215" jdbcType="VARCHAR"/>
+        <result property="te76216" column="te76216" jdbcType="VARCHAR"/>
+        <result property="te76217" column="te76217" jdbcType="VARCHAR"/>
+        <result property="te76218" column="te76218" jdbcType="VARCHAR"/>
+        <result property="te76219" column="te76219" jdbcType="VARCHAR"/>
+        <result property="te76220" column="te76220" jdbcType="VARCHAR"/>
+        <result property="te76221" column="te76221" jdbcType="VARCHAR"/>
+        <result property="te76222" column="te76222" jdbcType="VARCHAR"/>
+        <result property="te76223" column="te76223" jdbcType="CHAR"/>
+        <result property="te76224" column="te76224" jdbcType="CHAR"/>
+    </resultMap>
+    <!-- 廃止取次番号から廃止取次情報を取得する -->
+    <select id="findByAbolitionAgencyNoForAbolitionAgencyInfo" parameterClass="java.util.Map" resultMap="setFindByAbolitionAgencyNoForAbolitionAgencyInfoResult">
+    	SELECT
+			TRIM(TE76001) AS TE76001,
+			TE76002,
+			TRIM(TE76101) AS TE76101,
+			TE76102,
+			TRIM(TE76201) AS TE76201,
+			TRIM(TE76202) AS TE76202,
+			TE76203,
+			TRIM(TE76204) AS TE76204,
+			TE76205,
+			TRIM(TE76206) AS TE76206,
+			TE76207,
+			TE76208,
+			TE76209,
+			TE76210,
+			TE76211,
+			TRIM(TE76212) AS TE76212,
+			TRIM(TE76213) AS TE76213,
+			TE76214,
+			TE76215,
+			TE76216,
+			TE76217,
+			TE76218,
+			TE76219,
+			TE76220,
+			TE76221,
+			TE76222,
+			TRIM(TE76223) AS TE76223,
+			TRIM(TE76224) AS TE76224			
+		FROM
+			te76
+		WHERE
+			te76.te76001 = #te76001#
+		AND
+			te76.te76201 = #te76201#
+    </select>
+    <!--  Change Start 20160320 A.Miyakawa CATPPS-1473 -->
+    <!-- 廃止取次番号から廃止取次情報を取得する -->
+    <select id="findByAbolitionAgencyNoForAbolitionAgencyMultiInfo" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.contract.model.Te76EntityModel">
+    	SELECT
+			*
+		FROM
+			te76
+		WHERE
+			te76.te76001 = #te76001#
+		AND
+			te76.te76201 = #te76201#
+    </select>
+    <!--  Change Start 20160320 A.Miyakawa CATPPS-1473 -->
+    
+<!-- Add start 20160329 K.Kushiro CATPPS-1459  -->
+    <select id="findByContractList"
+            parameterClass="java.util.HashMap"
+            resultMap="Te76Result">
+        SELECT
+            TRIM(TE76.TE76001) AS TE76001,
+            TE76.TE76002 AS TE76002,
+            TRIM(TE76.TE76101) AS TE76101,
+            TE76.TE76102 AS TE76102,
+            TRIM(TE76.TE76201) AS TE76201,
+            TRIM(TE76.TE76202) AS TE76202,
+            TE76.TE76203 AS TE76203,
+            TRIM(TE76.TE76204) AS TE76204,
+            TE76.TE76205 AS TE76205,
+            TRIM(TE76.TE76206) AS TE76206,
+            TE76.TE76207 AS TE76207,
+            TE76.TE76208 AS TE76208,
+            TE76.TE76209 AS TE76209,
+            TE76.TE76210 AS TE76210,
+            TE76.TE76211 AS TE76211,
+            TRIM(TE76.TE76212) AS TE76212,
+            TRIM(TE76.TE76213) AS TE76213,
+            TE76.TE76214 AS TE76214,
+            TE76.TE76215 AS TE76215,
+            TE76.TE76216 AS TE76216,
+            TE76.TE76217 AS TE76217,
+            TE76.TE76218 AS TE76218,
+            TE76.TE76219 AS TE76219,
+            TE76.TE76220 AS TE76220,
+            TE76.TE76221 AS TE76221,
+            TE76.TE76222 AS TE76222,
+            TRIM(TE76.TE76223) AS TE76223,
+            TRIM(TE76.TE76224) AS TE76224,
+            TRIM(TE76.CREATOR) AS CREATOR,
+            TE76.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(TE76.UPDATER) AS UPDATER,
+            TE76.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(TE76.UPDATE_APP) AS UPDATE_APP,
+            TE76.VERSION_NO AS VERSION_NO
+        FROM TE76
+        WHERE
+           TE76.TE76001 = #stationCd#
+           AND
+           TE76.TE76101 = #customerCd#
+           AND
+           TE76.TE76102 = #contractSerialNumber#
+       ORDER BY
+           TE76.TE76002
+    </select>
+<!-- Add end 20160329 K.Kushiro CATPPS-1459  -->
+</sqlMap>

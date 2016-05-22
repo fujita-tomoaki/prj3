@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)T0a9EntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- T0A9ファイル管理を扱うためのデータアクセス定義 -->
+<sqlMap namespace="T0a9EntityDao">
+
+    <!-- 処理対象の契約に設定された公的証明書を取得する。-->
+    <select id="certificateInformationListGet" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+        SELECT
+            T0A9.T0A9002
+            , T0A9.T0A9101
+            , T0A9.T0A9103
+            , T0A9.T0A9201
+            , T0A9.T0A9202
+        FROM
+            T0A9
+        WHERE
+            T0A9.T0A9001 = #stationCd#
+        AND T0A9.T0A9101 IN (#formlDocs#, #otherDocs#)
+        AND T0A9.T0A9102 =  #svSerialNum#
+        ORDER BY  
+            T0A9.T0A9101 
+            , T0A9.T0A9103 
+    </select>
+    
+    <!-- 公的証明書を取得する。-->
+    <select id="findByPublicCertificate" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+        SELECT
+            TRIM(T0A9.T0A9001) AS T0A9001,
+            T0A9.T0A9002 AS T0A9002,
+            T0A9.T0A9101 AS T0A9101,
+            T0A9.T0A9102 AS T0A9102,
+            T0A9.T0A9103 AS T0A9103,
+            T0A9.T0A9201 AS T0A9201,
+            T0A9.T0A9202 AS T0A9202
+        FROM T0A9
+        WHERE
+           T0A9.T0A9001 = #stationCd#
+           AND
+           T0A9.T0A9101 = 1
+           AND
+           T0A9.T0A9102 = #contractSeq#
+    </select>
+
+    <!-- ファイル管理を取得する。-->
+    <select id="getFileManage" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+		SELECT
+			*
+		FROM T0A9
+		WHERE
+			T0A9001 = #stationCd#
+			AND T0A9101 = #manageDiv#
+			AND T0A9102 = #key1#
+    </select>
+    <!-- Add Start 2015/11/27 Y.Kondo 電力対応 -->
+    <select id="getAttachedFile" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+    SELECT	
+		T0A9001
+		, T0A9002
+		, T0A9101
+		, T0A9102
+		, T0A9103
+		, T0A9201
+		, T0A9202
+		, CREATOR
+		, CREATE_TIMESTAMP
+		, UPDATER
+		, UPDATE_TIMESTAMP
+		, UPDATE_APP
+		, VERSION_NO
+		
+	FROM T0A9	
+	WHERE	
+		T0A9.T0A9001 = #stationCd#
+	AND T0A9.T0A9101 = CMX_DIVISION.FILE_T0A9_MAIL_ATTACHED_FILE	
+	AND T0A9.T0A9102 = CAST(#mailId# AS VARCHAR2(27))
+    
+    </select>
+    <!-- Add End 2015/11/27 Y.Kondo 電力対応 -->
+    <!-- Add Start 2016/02/25 ThangBN -->
+    <!-- ファイル管理を取得する。-->
+    <select id="getExcelFileManagePXB0054" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+    SELECT
+    T0A9202
+    FROM T0A9
+    WHERE
+        T0A9001 = #stationCd#
+        AND T0A9101 = #manageDiv#
+        AND T0A9102 = #key1#
+        AND T0A9103 = #key2#
+    </select>
+    <!-- Add End 2016/02/25 ThangBN -->
+    <!-- Add Start 201602025 TriLD -->
+    <select id="excelTemplateFileObtainPXB0054Get" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+        SELECT
+            T0A9202
+        FROM
+            T0A9
+        WHERE
+            T0A9001 = #stationCd#
+            AND T0A9101 = CMX_DIVISION.FILE_T0A9_BILL_EXCEL_TEMPLATE
+            AND T0A9102 = #KEY1#
+            AND T0A9103 = 2
+    </select>
+    <!-- Add End 201602025 TriLD -->
+     <!-- Add Start DauPV1 20160229 -->
+ <select id="getFileManagerPXB0055ExchangeReport" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+ SELECT
+ T0A9202
+  FROM
+   T0A9
+  WHERE
+   T0A9001 = #stationCd#
+   AND T0A9101 = #mgmtDiv#
+   AND T0A9102 = #key1#
+   AND T0A9103 = #key2#
+ </select>
+ <!-- Add end DauPV1 20160229 -->
+ <!-- Add Start 20160225 HieuPS-->
+    <!-- EXCELテンプレートファイル取得する。-->
+    <select id="getEXCELFileManage" parameterClass="java.util.Map" resultClass="jp.co.hanshin.itec.caty.common.model.T0a9EntityModel">
+  SELECT
+   *
+  FROM T0A9
+  WHERE
+   T0A9001 = #stationCd#
+   AND T0A9101 = #manageDiv#
+   AND T0A9102 = #key1#
+   AND T0A9103 = #key2#
+    </select>
+   <!-- Add End 20160225 HieuPS-->
+</sqlMap>

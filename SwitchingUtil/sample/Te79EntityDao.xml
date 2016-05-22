@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)Te79EntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- 契約管理サービスDAOを扱うためのデータアクセス定義 -->
+<sqlMap namespace="Te79EntityDao">
+    <resultMap id="RenkeiRequestInfoResult" class="jp.co.hanshin.itec.caty.contract.model.Te79EntityModel">
+        <result property="te79001" column="TE79001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="te79002" column="TE79002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号 -->
+        <result property="te79003" column="TE79003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号連番 -->
+        <result property="te79101" column="TE79101" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 連携要求日時 -->
+        <result property="te79102" column="TE79102" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理状況 -->
+        <result property="te79103" column="TE79103" jdbcType="VARCHAR"/> <!-- サービスID -->
+        <result property="te79104" column="TE79104" jdbcType="CHAR"/> <!-- 顧客コード -->
+        <result property="te79105" column="TE79105" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連番 -->
+        <result property="te79106" column="TE79106" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 更新フラグ -->
+        <result property="te79107" column="TE79107" jdbcType="CHAR"/> <!-- 申込種別 -->
+        <result property="te79501" column="TE79501" jdbcType="CHAR"/> <!-- 申込番号 -->
+        <result property="te79601" column="TE79601" jdbcType="CHAR"/> <!-- 廃止取次番号 -->
+        <result property="te79801" column="TE79801" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 優先度 -->
+    </resultMap>
+    <select id="findByRenkeiRequestInfo" parameterClass="java.util.Map" resultMap="RenkeiRequestInfoResult">
+        SELECT
+            *
+        FROM
+            (
+                SELECT
+                    TE79.TE79001,
+                    TE79.TE79002,
+                    TE79.TE79003,
+                    TE79.TE79101,
+                    TE79.TE79102,
+                    TE79.TE79103,
+                    TE79.TE79104,
+                    TE79.TE79105,
+                    TE79.TE79106,
+                    TE79.TE79107,
+                    TE79.TE79501,
+                    TE79.TE79601,
+                    TE79.TE79801
+                FROM 
+                    TE79
+                WHERE
+                    TE79.TE79001 = #stationCd#
+                AND 
+                    TE79.TE79102 = 0
+                ORDER BY
+                    TE79.TE79001 ASC,
+                    TE79.TE79801 ASC,
+                    TE79.TE79002 ASC
+            )
+        WHERE
+            ROWNUM = 1
+    </select>
+    
+    <!-- Add Start 20151002 m.yakabi 電力対応 -->
+    <resultMap id="setFindByRenkeiRequestInfoForAppNoResult" class="jp.co.hanshin.itec.caty.contract.model.Te79EntityModel">
+        <result property="te79001" column="TE79001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="te79002" column="TE79002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号 -->
+        <result property="te79003" column="TE79003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号連番 -->
+        <result property="te79101" column="TE79101" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 連携要求日時 -->
+        <result property="te79102" column="TE79102" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理状況 -->
+        <result property="te79103" column="TE79103" jdbcType="VARCHAR"/> <!-- サービスID -->
+        <result property="te79104" column="TE79104" jdbcType="CHAR"/> <!-- 顧客コード -->
+        <result property="te79105" column="TE79105" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連番 -->
+        <result property="te79106" column="TE79106" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 更新フラグ -->
+        <result property="te79201" column="TE79201" jdbcType="CHAR"/> <!-- 連携日時 -->
+        <result property="te79202" column="TE79202" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 通信結果 -->
+        <result property="te79203" column="TE79203" jdbcType="CHAR"/> <!-- 通信ステータス -->
+        <result property="te79301" column="TE79301" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- サービス結果 -->
+        <result property="te79302" column="TE79302" jdbcType="VARCHAR"/> <!-- サービスエラー理由 -->
+        <result property="te79401" column="TE79401" jdbcType="CHAR"/> <!-- 連携結果 -->
+        <result property="te79402" column="TE79402" jdbcType="VARCHAR"/> <!-- 連携エラー理由 -->
+        <result property="te79501" column="TE79501" jdbcType="CHAR"/> <!-- 申込番号 -->
+        <result property="te79601" column="TE79601" jdbcType="CHAR"/> <!-- 廃止取次番号 -->
+    </resultMap>
+    <!-- 申込番号からスイッチング連携管理情報を取得する -->
+    <select id="findByRenkeiRequestInfoForAppNo" parameterClass="java.util.Map" resultMap="setFindByRenkeiRequestInfoForAppNoResult">
+    	SELECT
+    		TE79001,
+			TE79002,
+			TE79003,
+			TE79101,
+			TE79102,
+			TE79103,
+			TE79104,
+			TE79105,
+			TE79106,
+			TE79201,
+			TE79202,
+			TE79203,
+			TE79301,
+			TE79302,
+			TE79401,
+			TE79402,
+			TE79501,
+			TE79601
+			
+		FROM
+			TE79
+		WHERE
+			TE79.TE79001 = #te79001#
+		AND
+			TE79.TE79102 = 1
+		AND
+			TE79.TE79501 = #te79501#
+    </select>
+    <!-- Add End 20151002 m.yakabi 電力対応 -->
+    
+    <!-- Add Start 20151009 m.yakabi 電力対応 -->
+    <resultMap id="setFindByRenkeiRequestInfoForProcessedStatusResult" class="jp.co.hanshin.itec.caty.contract.model.Te79EntityModel">
+        <result property="te79001" column="TE79001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="te79002" column="TE79002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号 -->
+        <result property="te79003" column="TE79003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号連番 -->
+        <result property="te79101" column="TE79101" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 連携要求日時 -->
+        <result property="te79102" column="TE79102" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理状況 -->
+        <result property="te79103" column="TE79103" jdbcType="VARCHAR"/> <!-- サービスID -->
+        <result property="te79104" column="TE79104" jdbcType="CHAR"/> <!-- 顧客コード -->
+        <result property="te79105" column="TE79105" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連番 -->
+        <result property="te79106" column="TE79106" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 更新フラグ -->
+        <result property="te79107" column="TE79107" jdbcType="CHAR" /> <!-- 申込種別 -->
+        <result property="te79201" column="TE79201" jdbcType="CHAR"/> <!-- 連携日時 -->
+        <result property="te79202" column="TE79202" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 通信結果 -->
+        <result property="te79203" column="TE79203" jdbcType="CHAR"/> <!-- 通信ステータス -->
+        <result property="te79301" column="TE79301" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- サービス結果 -->
+        <result property="te79302" column="TE79302" jdbcType="VARCHAR"/> <!-- サービスエラー理由 -->
+        <result property="te79401" column="TE79401" jdbcType="CHAR"/> <!-- 連携結果 -->
+        <result property="te79402" column="TE79402" jdbcType="VARCHAR"/> <!-- 連携エラー理由 -->
+        <result property="te79501" column="TE79501" jdbcType="CHAR"/> <!-- 申込番号 -->
+        <result property="te79601" column="TE79601" jdbcType="CHAR"/> <!-- 廃止取次番号 -->
+    </resultMap>
+    <select id="findByRenkeiRequestInfoForProcessedStatus" parameterClass="java.util.Map" resultMap="setFindByRenkeiRequestInfoForProcessedStatusResult">
+    	SELECT
+			TE79001,
+			TE79002,
+			TE79003,
+			TE79101,
+			TE79102,
+			TE79103,
+			TE79104,
+			TE79105,
+			TE79106,
+			TE79107,
+			TE79201,
+			TE79202,
+			TE79203,
+			TE79301,
+			TE79302,
+			TE79401,
+			TE79402,
+			TE79501,
+			TE79601
+		
+		FROM
+			TE79
+		
+		WHERE
+			TE79.TE79001 = #te79001#
+			AND TE79.TE79002 <![CDATA[ >= ]]> #te79002#
+			AND TE79.TE79103 = #te79103#
+			AND TE79.TE79102 = 1
+		
+		ORDER BY
+			TE79.TE79001 ASC,
+			TE79.TE79002 ASC
+    </select>
+    <!-- Add End 20151009 m.yakabi 電力対応 -->
+    
+    <resultMap id="setfindByRenkeiRequestInfoForAbolitionAgencyNoResult" class="jp.co.hanshin.itec.caty.contract.model.Te79EntityModel">
+    <result property="te79001" column="TE79001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="te79002" column="TE79002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号 -->
+        <result property="te79003" column="TE79003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号連番 -->
+        <result property="te79101" column="TE79101" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 連携要求日時 -->
+        <result property="te79102" column="TE79102" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理状況 -->
+        <result property="te79103" column="TE79103" jdbcType="VARCHAR"/> <!-- サービスID -->
+        <result property="te79104" column="TE79104" jdbcType="CHAR"/> <!-- 顧客コード -->
+        <result property="te79105" column="TE79105" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連番 -->
+        <result property="te79106" column="TE79106" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 更新フラグ -->
+        <result property="te79201" column="TE79201" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 連携日時 -->
+        <result property="te79202" column="TE79202" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 通信結果 -->
+        <result property="te79203" column="TE79203" jdbcType="CHAR"/> <!-- 通信ステータス -->
+        <result property="te79301" column="TE79301" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- サービス結果 -->
+        <result property="te79302" column="TE79302" jdbcType="VARCHAR"/> <!-- サービスエラー理由 -->
+        <result property="te79401" column="TE79401" jdbcType="CHAR"/> <!-- 連携結果 -->
+        <result property="te79402" column="TE79402" jdbcType="VARCHAR"/> <!-- 連携エラー理由 -->
+        <result property="te79501" column="TE79501" jdbcType="CHAR"/> <!-- 申込番号 -->
+        <result property="te79601" column="TE79601" jdbcType="CHAR"/> <!-- 廃止取次番号 -->
+    </resultMap>
+    <select id="findByRenkeiRequestInfoForAbolitionAgencyNo" 
+    		parameterClass="java.util.Map" 
+    		resultMap="setfindByRenkeiRequestInfoForAbolitionAgencyNoResult">
+    	SELECT
+			TE79001,
+			TE79002,
+			TE79003,
+			TE79101,
+			TE79102,
+			TE79103,
+			TE79104,
+			TE79105,
+			TE79106,
+			TE79201,
+			TE79202,
+			TE79203,
+			TE79301,
+			TE79302,
+			TE79401,
+			TE79402,
+			TE79501,
+			TE79601
+		
+		FROM
+			TE79
+		
+		WHERE
+			TE79.TE79001 = #te79001#
+			<!-- Add Start 20151209 a.Miyakawa -->
+			AND TE79.TE79102 = 1
+			<!-- Add End 20151209 a.Miyakawa -->
+			AND TE79.TE79601 = #te79601#
+		
+    </select>
+	<!-- Add start 20160216 A.Takemi [CATPPS-979] -->
+	<!-- TE71スイッチングＩＦ管理マスタから優先度を自動設定し、TE79スイッチング連携管理情報を登録します。 -->
+	<parameterMap id="InsertWithPriorityParam" class="jp.co.hanshin.itec.caty.contract.model.BaseTe79EntityModel">
+		<parameter property="te79001" jdbcType="CHAR"/>
+		<parameter property="te79003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+		<parameter property="te79101" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+		<parameter property="te79102" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+		<parameter property="te79103" jdbcType="VARCHAR"/>
+		<parameter property="te79104" jdbcType="CHAR"/>
+		<parameter property="te79105" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+		<parameter property="te79106" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+		<parameter property="te79107" jdbcType="CHAR"/>
+		
+		<parameter property="te79201" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+		<parameter property="te79202" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+		<parameter property="te79203" jdbcType="CHAR"/>
+		<parameter property="te79301" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/>
+		<parameter property="te79302" jdbcType="VARCHAR"/>
+		<parameter property="te79401" jdbcType="CHAR"/>
+		<parameter property="te79402" jdbcType="VARCHAR"/>
+		<parameter property="te79501" jdbcType="CHAR"/>
+		<parameter property="te79601" jdbcType="CHAR"/>
+		<parameter property="te79701" jdbcType="VARCHAR"/>
+		
+		<parameter property="te79001" jdbcType="CHAR"/>
+		<parameter property="te79103" jdbcType="VARCHAR"/>
+		<parameter property="creator" jdbcType="CHAR"/>
+		<parameter property="updater" jdbcType="CHAR"/>
+		<parameter property="updateApp" jdbcType="CHAR"/>
+	</parameterMap>
+	<insert id="insertWithPriority" parameterMap="InsertWithPriorityParam">
+		INSERT INTO TE79 (
+			TE79001, TE79002, TE79003, TE79101, TE79102, TE79103, TE79104, TE79105, TE79106, TE79107,
+			TE79201, TE79202, TE79203, TE79301, TE79302, TE79401, TE79402, TE79501, TE79601, TE79701,
+			TE79801, CREATOR, UPDATER, UPDATE_APP, VERSION_NO
+		) VALUES (
+			?, SEQ_TE79002.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?,
+			?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+			(SELECT TE71101 FROM TE71 WHERE TE71001 = ? AND TE71002 = ?), ?, ?, ?, 1
+		)
+	</insert>
+	<!-- Add end 20160216 A.Takemi [CATPPS-979] -->
+    <!-- Add Start 20160207 A.Miyakawa TASK_WST -->
+    <resultMap id="countLinkCtrlResult" class="java.util.HashMap">
+        <result property="countNum" column="COUNTNUM" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+    </resultMap>
+    <select id="countLinkCtrl" 
+    		parameterClass="java.util.Map" 
+    		resultMap="countLinkCtrlResult">
+    	SELECT
+			COUNT(*) AS COUNTNUM
+		FROM
+			TE79
+		WHERE
+			TE79.TE79001 = #stationCd#
+			AND TE79.TE79104 = #customerCd#
+			AND TE79.TE79105 = #serviceSeqNo#
+			AND TE79.TE79102 = #process#
+			AND TO_CHAR(TE79.TE79201, 'YYYYMMDD') = #processingDate#
+		
+    </select>
+    <!-- Add End 20160207 A.Miyakawa TASK_WST -->
+    
+<!-- Add start 20160329 K.Kushiro CATPPS-1459  -->
+    <select id="findByContractList"
+            parameterClass="java.util.HashMap"
+            resultMap="Te79Result">
+        SELECT
+            TRIM(TE79.TE79001) AS TE79001,
+            TE79.TE79002 AS TE79002,
+            TE79.TE79003 AS TE79003,
+            TE79.TE79101 AS TE79101,
+            TE79.TE79102 AS TE79102,
+            TE79.TE79103 AS TE79103,
+            TRIM(TE79.TE79104) AS TE79104,
+            TE79.TE79105 AS TE79105,
+            TE79.TE79106 AS TE79106,
+            TRIM(TE79.TE79107) AS TE79107,
+            TE79.TE79201 AS TE79201,
+            TE79.TE79202 AS TE79202,
+            TRIM(TE79.TE79203) AS TE79203,
+            TE79.TE79301 AS TE79301,
+            TE79.TE79302 AS TE79302,
+            TRIM(TE79.TE79401) AS TE79401,
+            TE79.TE79402 AS TE79402,
+            TRIM(TE79.TE79501) AS TE79501,
+            TRIM(TE79.TE79601) AS TE79601,
+            TE79.TE79701 AS TE79701,
+            TE79.TE79801 AS TE79801,
+            TRIM(TE79.CREATOR) AS CREATOR,
+            TE79.CREATE_TIMESTAMP AS CREATE_TIMESTAMP,
+            TRIM(TE79.UPDATER) AS UPDATER,
+            TE79.UPDATE_TIMESTAMP AS UPDATE_TIMESTAMP,
+            TRIM(TE79.UPDATE_APP) AS UPDATE_APP,
+            TE79.VERSION_NO AS VERSION_NO
+        FROM TE79
+        WHERE
+           TE79.TE79001 = #stationCd#
+           AND
+           TE79.TE79104 = #customerCd#
+           AND
+           TE79.TE79105 = #contractSerialNumber#
+        ORDER BY
+           TE79.TE79002, TE79.TE79003
+    </select>
+<!-- Add end 20160329 K.Kushiro CATPPS-1459  --> 
+    
+	<!-- CATPPS-1548 20160331 K.Harada add start -->
+	<select id="getMaxTe79201" parameterClass="java.util.Map" resultClass="java.sql.Timestamp">
+		<!-- CATPPS-1548 20160405 K.Harada modify start -->
+		<!-- TE79201が処理完了時の値でないことによる暫定での全面改訂　実際の対応方針が決まればそれに沿って修正又はリビジョンを戻すこと -->
+		SELECT MAX(TE79.UPDATE_TIMESTAMP) FROM TE79
+		WHERE
+			TE79.TE79001 = #stationCd#
+		AND TE79.TE79102 = 2
+		AND TE79.TE79103 = 'IF_10910'
+		<!-- CATPPS-1548 20160405 K.Harada modify end -->
+	</select>
+	<!-- CATPPS-1548 20160331 K.Harada add end -->
+</sqlMap>

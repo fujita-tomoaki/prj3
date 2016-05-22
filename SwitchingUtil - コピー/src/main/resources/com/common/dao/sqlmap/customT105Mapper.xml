@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.common.dao.customT105Mapper" >
+    <select id="findByCustomerAddressInfo"
+            parameterType="java.util.Map"
+            resultMap="com.common.dao.T105Mapper.BaseResultMap">
+        SELECT
+            TRIM(T105.T105001) AS T105001,
+            TRIM(T105.T105002) AS T105002,
+            T105.T105003 AS T105003,
+            T105.T105004 AS T105004,
+            T105.T105101 AS T105101,
+            TRIM(T105.T105102) AS T105102,
+            T105.T105103 AS T105103,
+            T105.T105201 AS T105201,
+            T105.T105202 AS T105202,
+            T105.T105203 AS T105203,
+            T105.T105204 AS T105204,
+            T105.T105205 AS T105205,
+            TRIM(T105.T105301) AS T105301,
+            T105.T105302 AS T105302,
+            T105.T105303 AS T105303,
+            T105.T105304 AS T105304,
+            T105.T105305 AS T105305,
+            T105.T105306 AS T105306,
+            T105.T105307 AS T105307,
+            T105.T105308 AS T105308,
+            TRIM(T105.T105309) AS T105309,
+            T105.T105310 AS T105310,
+            T105.T105311 AS T105311,
+            T105.T105312 AS T105312,
+            T105.T105313 AS T105313,
+            TRIM(T105.T105314) AS T105314,
+            T105.T105315 AS T105315,
+            TRIM(T105.T105316) AS T105316
+        FROM T105
+        WHERE
+           T105.T105001 = #t105001#
+           AND
+           T105.T105002 = #t105002#
+    </select>
+    
+
+</mapper>

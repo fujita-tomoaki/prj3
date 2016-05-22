@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  sqlMap SYSTEM "sql-map-2.dtd">
+
+<!--
+    @(#)Te73EntityDao.xml
+    Product: CatManagerVer5
+    copyright(C) iTEC Hankyu Hanshin Co., Ltd All rights reserved.
+-->
+
+<!-- TE73スイッチング業務処理状況確認マスタを扱うためのデータアクセス定義 -->
+<sqlMap namespace="Te73EntityDao">
+    <!-- ParameterMap(iBatisが空の属性がないとパースエラーとなるためダミーを定義 定義を追加した後、削除してください) -->
+    <parameterMap id="dummy" class="java.lang.String">
+        <parameter property="name" />
+    </parameterMap>
+    
+    <!-- Add Start 20151009 m.yakabi 電力対応 -->
+    <resultMap id="setBizProcStatusCheckLinkRequestInfoResult" class="jp.co.hanshin.itec.caty.contract.model.Te73EntityModel">
+        <result property="te73002" column="TE73002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 業務処理状況確認連番 -->
+        <result property="te73101" column="TE73101" jdbcType="VARCHAR"/> <!-- サービスID -->
+        <result property="te73201" column="TE73201" jdbcType="CHAR"/> <!-- 小売事業者コード -->
+        <result property="te73301" column="TE73301" jdbcType="CHAR"/> <!-- 電力会社エリア -->
+        <result property="te73401" column="TE73401" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理順位 -->
+        <result property="te73501" column="TE73501" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理中申込日時 -->
+        <result property="te73601" column="TE73601" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 最終未完了申込日時 -->
+    </resultMap>
+    
+    <!-- 業務処理状況確認連携要求情報取得 -->
+    <!-- 2015/11/07 K.Suzuki Chg ROWNUM = 1 を削除 -->
+    <select id="getBizProcStatusCheckLinkRequestInfo" parameterClass="java.lang.String" resultMap="setBizProcStatusCheckLinkRequestInfoResult">
+		SELECT	
+			TE73002,
+			TE73101,
+			TE73201,
+			TE73301,
+			TE73401,
+			TE73501,
+			TE73601
+		FROM
+			TE73
+		WHERE
+			TE73.TE73001 =	#stationCd#
+		ORDER BY 
+			TE73.TE73401 ASC
+    </select>
+    <!-- Add End 20151009 m.yakabi 電力対応 -->
+</sqlMap>

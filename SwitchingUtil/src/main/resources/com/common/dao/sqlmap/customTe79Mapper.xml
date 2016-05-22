@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.common.dao.customTe79Mapper" >
+    <select id="findByRenkeiRequestInfo" parameterType="java.util.Map" resultMap="com.common.dao.Te79Mapper.BaseResultMap">
+        SELECT
+            *
+        FROM
+            (
+                SELECT
+                    TE79.TE79001,
+                    TE79.TE79002,
+                    TE79.TE79003,
+                    TE79.TE79101,
+                    TE79.TE79102,
+                    TE79.TE79103,
+                    TE79.TE79104,
+                    TE79.TE79105,
+                    TE79.TE79106,
+                    TE79.TE79107,
+                    TE79.TE79501,
+                    TE79.TE79601,
+                    TE79.TE79801
+                FROM 
+                    TE79
+                WHERE
+                    TE79.TE79001 = #stationCd#
+                AND 
+                    TE79.TE79102 = 0
+                ORDER BY
+                    TE79.TE79001 ASC,
+                    TE79.TE79801 ASC,
+                    TE79.TE79002 ASC
+            )
+        WHERE
+            ROWNUM = 1
+    </select>
+    
+    
+    <!-- Add Start 20151009 m.yakabi 電力対応 -->
+    <resultMap id="setFindByRenkeiRequestInfoForProcessedStatusResult" type="jp.co.hanshin.itec.caty.contract.model.Te79EntityModel">
+        <result property="te79001" column="TE79001" jdbcType="CHAR"/> <!-- 局コード -->
+        <result property="te79002" column="TE79002" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号 -->
+        <result property="te79003" column="TE79003" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連携番号連番 -->
+        <result property="te79101" column="TE79101" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/> <!-- 連携要求日時 -->
+        <result property="te79102" column="TE79102" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 処理状況 -->
+        <result property="te79103" column="TE79103" jdbcType="VARCHAR"/> <!-- サービスID -->
+        <result property="te79104" column="TE79104" jdbcType="CHAR"/> <!-- 顧客コード -->
+        <result property="te79105" column="TE79105" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 連番 -->
+        <result property="te79106" column="TE79106" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 更新フラグ -->
+        <result property="te79107" column="TE79107" jdbcType="CHAR" /> <!-- 申込種別 -->
+        <result property="te79201" column="TE79201" jdbcType="CHAR"/> <!-- 連携日時 -->
+        <result property="te79202" column="TE79202" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- 通信結果 -->
+        <result property="te79203" column="TE79203" jdbcType="CHAR"/> <!-- 通信ステータス -->
+        <result property="te79301" column="TE79301" jdbcType="NUMERIC" javaType="java.math.BigDecimal"/> <!-- サービス結果 -->
+        <result property="te79302" column="TE79302" jdbcType="VARCHAR"/> <!-- サービスエラー理由 -->
+        <result property="te79401" column="TE79401" jdbcType="CHAR"/> <!-- 連携結果 -->
+        <result property="te79402" column="TE79402" jdbcType="VARCHAR"/> <!-- 連携エラー理由 -->
+        <result property="te79501" column="TE79501" jdbcType="CHAR"/> <!-- 申込番号 -->
+        <result property="te79601" column="TE79601" jdbcType="CHAR"/> <!-- 廃止取次番号 -->
+    </resultMap>
+    <select id="findByRenkeiRequestInfoForProcessedStatus" parameterType="java.util.Map" resultMap="com.common.dao.Te79Mapper.BaseResultMap">
+    	SELECT
+			TE79001,
+			TE79002,
+			TE79003,
+			TE79101,
+			TE79102,
+			TE79103,
+			TE79104,
+			TE79105,
+			TE79106,
+			TE79107,
+			TE79201,
+			TE79202,
+			TE79203,
+			TE79301,
+			TE79302,
+			TE79401,
+			TE79402,
+			TE79501,
+			TE79601
+		
+		FROM
+			TE79
+		
+		WHERE
+			TE79.TE79001 = #te79001#
+			AND TE79.TE79002 <![CDATA[ >= ]]> #te79002#
+			AND TE79.TE79103 = #te79103#
+			AND TE79.TE79102 = 1
+		
+		ORDER BY
+			TE79.TE79001 ASC,
+			TE79.TE79002 ASC
+    </select>
+    <!-- Add End 20151009 m.yakabi 電力対応 -->
+    
+</mapper>
