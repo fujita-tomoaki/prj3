@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.common.dao.customT105Mapper" >
+<mapper namespace="com.common.dao.T105CustomMapper" >
     <select id="findByCustomerAddressInfo"
             parameterType="java.util.Map"
             resultMap="com.common.dao.T105Mapper.BaseResultMap">

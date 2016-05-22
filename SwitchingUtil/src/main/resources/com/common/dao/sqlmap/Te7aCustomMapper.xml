@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.common.dao.customTe7aMapper" >
+<mapper namespace="com.common.dao.Te7aCustomMapper" >
 
     <!-- スイッチング連携拡張項目（要求）を取得する。-->
     <resultMap id="ExtensionItemInfoResult" type="com.common.dao.model.Te7a">

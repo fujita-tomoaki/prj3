@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.common.dao.Te79CustomMapper" >
+    <select id="findByRenkeiRequestInfo"
+      parameterType="java.util.Map" resultMap="com.common.dao.Te79Mapper.BaseResultMap">
+        SELECT
+            *
+        FROM
+            (
+                SELECT
+                    TE79.TE79001,
+                    TE79.TE79002,
+                    TE79.TE79003,
+                    TE79.TE79101,
+                    TE79.TE79102,
+                    TE79.TE79103,
+                    TE79.TE79104,
+                    TE79.TE79105,
+                    TE79.TE79106,
+                    TE79.TE79107,
+                    TE79.TE79501,
+                    TE79.TE79601,
+                    TE79.TE79801
+                FROM 
+                    TE79
+                WHERE
+                    TE79.TE79001 = #stationCd#
+                AND 
+                    TE79.TE79102 = 0
+                ORDER BY
+                    TE79.TE79001 ASC,
+                    TE79.TE79801 ASC,
+                    TE79.TE79002 ASC
+            )
+        WHERE
+            ROWNUM = 1
+    </select>
+    
+    <select id="findByRenkeiRequestInfoForProcessedStatus"
+      parameterType="java.util.Map" resultMap="com.common.dao.Te79Mapper.BaseResultMap">
+    	SELECT
+			TE79001,
+			TE79002,
+			TE79003,
+			TE79101,
+			TE79102,
+			TE79103,
+			TE79104,
+			TE79105,
+			TE79106,
+			TE79107,
+			TE79201,
+			TE79202,
+			TE79203,
+			TE79301,
+			TE79302,
+			TE79401,
+			TE79402,
+			TE79501,
+			TE79601
+		
+		FROM
+			TE79
+		
+		WHERE
+			TE79.TE79001 = #te79001#
+			AND TE79.TE79002 <![CDATA[ >= ]]> #te79002#
+			AND TE79.TE79103 = #te79103#
+			AND TE79.TE79102 = 1
+		
+		ORDER BY
+			TE79.TE79001 ASC,
+			TE79.TE79002 ASC
+    </select>
+    
+</mapper>

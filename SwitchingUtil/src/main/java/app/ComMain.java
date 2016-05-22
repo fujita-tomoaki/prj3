@@ -11,7 +11,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.common.dao.T105Mapper;
 import com.common.dao.model.T105;
+import com.common.dao.model.T105Example;
 
 public class ComMain {
     public static void main(String[] args) throws Exception {
@@ -33,7 +35,15 @@ public class ComMain {
             // ★SqlSessionFactory から SqlSession を生成する
             try (SqlSession session = factory.openSession()) {
                 // ★SqlSession を使って SQL を実行する
-                List<T105> result = session.selectList("com.common.dao.T105Mapper.selectByExample");
+            	
+            	// マッパーを経由する場合
+            	T105Mapper mapper = session.getMapper(T105Mapper.class);
+            	T105Example params = new T105Example();
+            	params.createCriteria().andT105001EqualTo("001");
+            	List<T105> result = mapper.selectByExample(params);
+            	
+            	// sqlmapを直接指定する場合
+//                List<T105> result = session.selectList("com.common.dao.T105Mapper.selectByExample");
 
                 result.forEach(row -> {
                     System.out.println("T105002: " + row.getT105002());

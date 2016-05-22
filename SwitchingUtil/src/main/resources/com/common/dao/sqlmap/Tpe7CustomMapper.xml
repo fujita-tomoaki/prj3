@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.common.dao.customTpe7Mapper" >
+<mapper namespace="com.common.dao.Tpe7CustomMapper" >
 
     <!-- 任意に指定された検索キーでTPE7画面設定マスタを取得する -->
     <select id="getDisplayConfigMasterList" parameterType="com.common.dao.model.Tpe7" resultMap="com.common.dao.Tpe7Mapper.BaseResultMap">

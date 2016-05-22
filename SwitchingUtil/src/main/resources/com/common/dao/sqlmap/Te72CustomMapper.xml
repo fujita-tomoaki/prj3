@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.common.dao.customTe72Mapper" >
+<mapper namespace="com.common.dao.Te72CustomMapper" >
     
     <!-- Add Start 20151009 m.yakabi 電力対応 -->
     <resultMap id="setAfBizProcStatusCheckLinkRequestInfoResult" type="com.common.dao.model.Te72">

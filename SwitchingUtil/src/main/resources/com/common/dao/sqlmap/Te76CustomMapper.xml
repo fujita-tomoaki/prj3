@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.common.dao.customTe76Mapper" >
+<mapper namespace="com.common.dao.Te76CustomMapper" >
 
     <!-- 廃止取次番号から廃止取次情報を取得する -->
-    <select id="findByAbolitionAgencyNoForAbolitionAgencyInfo" parameterType="java.util.Map" resultMap="com.common.dao.model.Te76">
+    <select id="findByAbolitionAgencyNoForAbolitionAgencyInfo" parameterType="java.util.Map" resultMap="com.common.dao.Te76Mapper.BaseResultMap">
     	SELECT
 			TRIM(TE76001) AS TE76001,
 			TE76002,

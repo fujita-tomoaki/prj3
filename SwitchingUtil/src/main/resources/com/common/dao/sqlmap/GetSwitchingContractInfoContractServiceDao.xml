@@ -8,7 +8,7 @@
 -->
 
 <!-- 契約管理サービスDAOを扱うためのデータアクセス定義 -->
-<sqlMap namespace="contractServiceDao">
+<mapper namespace="contractServiceDao">
     <resultMap id="GetSwitchingContractInfoResult" type="com.common.dao.model.GetSwitchingContractInfoResult">            
         <result property="stationCd" column="TE11001" jdbcType="CHAR" /> <!-- 局コード -->            
         <result property="customerCd" column="TE11002" jdbcType="CHAR" /> <!-- 顧客コード -->            
@@ -96,4 +96,4 @@
           AND TE11.TE11002 = #customerCd# 
           AND TE11.TE11003 = #seqNo#
     </select>
-</sqlMap>
+</mapper>

@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+  <settings>
+    <setting name="logImpl" value="LOG4J"/>
+  </settings>
+  
 <!-- 
   <properties resource="jdbc.properties">
     <property name="driver" value="driver"/>
@@ -25,27 +29,31 @@
   </environments>
   
   <mappers>
-    <mapper resource="com/common/dao/sqlmap/customT0a9Mapper.xml"/>
-    <mapper resource="com/common/dao/sqlmap/customT105Mapper.xml"/>
-    <mapper resource="com/common/dao/sqlmap/customTe72Mapper.xml"/>
-    <mapper resource="com/common/dao/sqlmap/customTe73Mapper.xml"/>
-    <mapper resource="com/common/dao/sqlmap/customTe76Mapper.xml"/>
-    <mapper resource="com/common/dao/sqlmap/customTe79Mapper.xml"/>
-    <mapper resource="com/common/dao/sqlmap/customTe7aMapper.xml"/>
-    <mapper resource="com/common/dao/sqlmap/customTpe7Mapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/GetSwitchingContractInfoContractServiceDao.xml"/>
     <mapper resource="com/common/dao/sqlmap/T0a9Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/T0a9CustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/T105Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/T105CustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/Te11Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/Te11CustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/Te17Mapper.xml"/>
+    <!--  <mapper resource="com/common/dao/sqlmap/Te17CustomMapper.xml"/> -->
     <mapper resource="com/common/dao/sqlmap/Te72Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/Te72CustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/Te73Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/Te73CustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/Te76Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/Te76CustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/Te79Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/Te79CustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/Te7aMapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/Te7aCustomMapper.xml"/>
     <mapper resource="com/common/dao/sqlmap/Te7bMapper.xml"/>
+    <!-- <mapper resource="com/common/dao/sqlmap/Te7bCustomMapper.xml"/> -->
     <mapper resource="com/common/dao/sqlmap/Te7jMapper.xml"/>
+    <!-- <mapper resource="com/common/dao/sqlmap/Te7jCustomMapper.xml"/> -->
     <mapper resource="com/common/dao/sqlmap/Tpe7Mapper.xml"/>
+    <mapper resource="com/common/dao/sqlmap/Tpe7CustomMapper.xml"/>
   </mappers>
   
 </configuration>

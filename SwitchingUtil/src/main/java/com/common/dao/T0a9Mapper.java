@@ -3,6 +3,8 @@ package com.common.dao;
 import com.common.dao.model.T0a9;
 import com.common.dao.model.T0a9Example;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface T0a9Mapper {
@@ -77,4 +79,11 @@ public interface T0a9Mapper {
      * @mbggenerated Sat May 21 21:52:31 JST 2016
      */
     int updateByExample(@Param("record") T0a9 record, @Param("example") T0a9Example example);
+
+	/**
+	 * 
+	 * @param params
+	 * @return
+	 */
+    List<T0a9> findByPublicCertificate(Map params);
 }
