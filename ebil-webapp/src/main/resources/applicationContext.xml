@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 書き方 -->
+	<!-- https://www.ois-yokohama.co.jp/oisblog/archives/534 -->
+	
+	<context:component-scan base-package="net.newbiz.ebil.billing" />
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="${spring.datasource.driverClassName}"/>
+      <property name="url" value="${spring.datasource.url}" />
+      <property name="username" value="${spring.datasource.username}" />
+      <property name="password" value="${spring.datasource.password}" />
+    </bean>
+    
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <!-- SQL-Mapを読み込む -->
+	  <property name="mapperLocations" value="classpath*:net/newbiz/ebil/billing/dao/sqlmap/*.xml" />
+	</bean>
+	
+    <!-- SqlSessionFactoryの設定 -->
+	<bean id="TCustMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.newbiz.ebil.billing.dao.TCustMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="TBillMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.newbiz.ebil.billing.dao.TBillMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	  <property name="basePackage" value="net.newbiz.ebil.billing.dao.sqlmap" />
+	</bean>
+	-->
+	
+	<!-- 
+    <mybatis:scan base-package="net.newbiz.ebil.billing.dao.sqlmap" />
+     -->
+	
+	<context:annotation-config />
+    <!-- <context:component-scan base-package="jp.momotaro_lucy.sample.mybatis_spring" /> -->
+    
+</beans>

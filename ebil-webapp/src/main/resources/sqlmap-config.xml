@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 現在未使用 -->
+<sqlMapConfig>
+    <sqlMap resource="net/newbiz/ebil/billing/dao/sqlmap/TCustMapper.xml"/>
+</sqlMapConfig>
