@@ -1,0 +1,6 @@
+net\newbiz\ebil\billing\dao\model\TChgRsv.class
+net\newbiz\ebil\billing\dao\model\TChgRsvExample$Criteria.class
+net\newbiz\ebil\billing\dao\model\TChgRsvExample$Criterion.class
+net\newbiz\ebil\billing\dao\TChgRsvMapper.class
+net\newbiz\ebil\billing\dao\model\TChgRsvExample$GeneratedCriteria.class
+net\newbiz\ebil\billing\dao\model\TChgRsvExample.class
