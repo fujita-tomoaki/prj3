@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.newbiz.ebil.billing.dao.TCustMapperExt">
+
+  <!--  add by fujita -->  
+  <select id="selectDistinctNameByExample" parameterType="net.newbiz.ebil.billing.dao.model.TCustExample" resultMap="BaseResultMap">
+    select
+      distinct cust_nm
+    from t_cust
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+</mapper>
