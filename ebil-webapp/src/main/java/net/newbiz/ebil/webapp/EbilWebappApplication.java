@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @ImportResource("classpath:applicationContext.xml")
+//@ImportResource("classpath:testApplicationContext.xml")
 public class EbilWebappApplication {
 
 	public static void main(String[] args) {

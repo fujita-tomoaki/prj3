@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-03T15:27:30 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e481980a-7bda-4c24-a3af-21d0d107f594">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="furikaegeppou_data_tmpl2.xml"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="対象月" class="java.lang.String"/>
+	<field name="地区" class="java.lang.String"/>
+	<field name="直接入金分（料金）" class="java.lang.String"/>
+	<field name="直接入金分（精算金）" class="java.lang.String"/>
+	<field name="直接入金分（その他）" class="java.lang.String"/>
+	<field name="直接入金分（欠損後回収）" class="java.lang.String"/>
+	<field name="直接入金分（合計）" class="java.lang.String"/>
+	<field name="間接入金分（料金）" class="java.lang.String"/>
+	<field name="間接入金分（精算金）" class="java.lang.String"/>
+	<field name="間接入金分（その他）" class="java.lang.String"/>
+	<field name="間接入金分（欠損後回収）" class="java.lang.String"/>
+	<field name="間接入金分（合計）" class="java.lang.String"/>
+	<field name="合計入金分（料金）" class="java.lang.String"/>
+	<field name="合計入金分（精算金）" class="java.lang.String"/>
+	<field name="合計入金分（その他）" class="java.lang.String"/>
+	<field name="合計入金分（欠損後回収）" class="java.lang.String"/>
+	<field name="合計入金分（合計）" class="java.lang.String"/>
+	<field name="預り金（前月繰越）" class="java.lang.String"/>
+	<field name="預り金（当月預り金）" class="java.lang.String"/>
+	<field name="預り金（当月振替）" class="java.lang.String"/>
+	<field name="預り金（当月清算金振替）" class="java.lang.String"/>
+	<field name="預り金（当月残高）" class="java.lang.String"/>
+	<title>
+		<band height="101" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<staticText>
+				<reportElement key="" x="171" y="30" width="299" height="30" uuid="04b8e4dc-a127-4927-88fe-078954a0f1f2"/>
+				<textElement>
+					<font fontName="IPAex-mincyo" size="20"/>
+				</textElement>
+				<text><![CDATA[地区別振替月報(                  )]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="320" y="31" width="110" height="30" uuid="7a00928c-7f14-4a11-9e91-de0f29aafc7f"/>
+				<textElement>
+					<font fontName="IPAex-mincyo" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{対象月}.substring( 0, 4 ) + "年" + $F{対象月}.substring( 4, 6) + "月"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="70" width="100" height="20" uuid="7f1f7dbc-7d80-4889-a62c-b4b9dc6bc8ba"/>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{地区}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Left">
+				<reportElement mode="Transparent" x="0" y="0" width="80" height="75" forecolor="rgba(0, 0, 0, 0.3137255)" backcolor="rgba(255, 255, 255, 0.35686275)" uuid="e4bb858c-fc04-444d-a280-fae1d61a3163"/>
+				<imageExpression><![CDATA["C:/Users/tekuteku_tomotomo/Desktop/プロジェクト/Riz-works/ロゴデザイン01.png"]]></imageExpression>
+			</image>
+			<textField pattern="yyyy/MM/dd hh:mm">
+				<reportElement x="470" y="0" width="100" height="20" uuid="7e7ccf10-a598-4911-a4c1-eec4903d9f84"/>
+				<textElement textAlignment="Right">
+					<font fontName="IPAex-gothic" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[NOW( )]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="37" width="100" height="12" backcolor="#D9D9D9" uuid="51bc0cc2-6669-4d63-8b2a-ddf3b9931e05"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[請求金額]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="5" width="100" height="10" uuid="e95d4e79-7d7e-4e20-8800-5e4b65c83923"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[直接入金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="37" width="100" height="12" backcolor="#D9D9D9" uuid="bc222e30-d6fe-49e2-8973-f5ddd1423f2e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[精算金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="25" width="300" height="12" backcolor="#D9D9D9" uuid="ca6f3f96-55e2-4e65-b992-569a1fd1ee9d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[通常回収]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="37" width="100" height="12" backcolor="#D9D9D9" uuid="586aa656-b3cb-4433-a8e8-ba0156e6273f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[その他]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="300" y="25" width="120" height="24" backcolor="#D9D9D9" uuid="31f4c977-3215-4a6c-aa38-5f2890aab3b8">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[欠損後回収]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="420" y="25" width="120" height="24" backcolor="#D9D9D9" uuid="19001bce-db62-4614-bb6d-74d179d9318f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[合計]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="288" splitType="Stretch">
+			<textField pattern="#,##0.###">
+				<reportElement x="0" y="0" width="100" height="20" uuid="41971fa7-b1da-4782-aa63-c489df091cbf"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{直接入金分（料金）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="100" y="0" width="100" height="20" uuid="bc829687-0ac8-4878-8c85-521c2f1b1c02"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{直接入金分（精算金）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="200" y="0" width="100" height="20" uuid="cba681d8-7a9d-4108-b267-2b2781e1491a"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{直接入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="300" y="0" width="120" height="20" uuid="77e3154c-58ae-4c62-bf91-195931bed8fa"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{直接入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="420" y="0" width="120" height="20" uuid="5dd82ba0-a4b5-47db-aa1d-e4a9bf78608c"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{直接入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="68" width="100" height="12" backcolor="#D9D9D9" uuid="7dee6bca-7020-4220-9330-df9a0b555baa"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[請求金額]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="100" height="10" uuid="82304710-3090-4eec-bc50-61b4c0a29509"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[間接入金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="68" width="100" height="12" backcolor="#D9D9D9" uuid="569fb051-67a3-4699-a255-c614c9a0c8c9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[精算金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="56" width="300" height="12" backcolor="#D9D9D9" uuid="79eaedaa-caf3-4851-bb2c-1f58350fd3ae"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[通常回収]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="68" width="100" height="12" backcolor="#D9D9D9" uuid="2c31adb5-b3a7-458e-81f9-0790de30f670"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[その他]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="300" y="56" width="120" height="24" backcolor="#D9D9D9" uuid="966e4cb7-15f0-46ac-a4f2-a8c312aee290">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[欠損後回収]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="420" y="56" width="120" height="24" backcolor="#D9D9D9" uuid="79396e70-2adf-4f36-80de-92661f7e049c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[合計]]></text>
+			</staticText>
+			<textField pattern="#,##0.###">
+				<reportElement x="0" y="80" width="100" height="20" uuid="551ae6c7-75eb-4f27-9333-53e5a5c311af"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+					<font fontName="IPAex-gothic"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{間接入金分（料金）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="100" y="80" width="100" height="20" uuid="6d4c9c88-8ffa-4813-ac9b-da4f8668516a"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{間接入金分（精算金）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="200" y="80" width="100" height="20" uuid="cddc5a3b-0695-4532-9a16-ded9eb4feebb"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{間接入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="300" y="80" width="120" height="20" uuid="9196af29-01d6-4952-9e68-46a318373360"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{間接入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="420" y="80" width="120" height="20" uuid="23748cac-3011-4227-a881-7c3088f39a7f"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{間接入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="152" width="100" height="12" backcolor="#D9D9D9" uuid="891c6845-f87a-41a3-a396-374906c30dc2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[請求金額]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="122" width="100" height="10" uuid="d7dd7a4d-6bcc-4d49-a211-2e2303b2a510"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[合計]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="152" width="100" height="12" backcolor="#D9D9D9" uuid="70ac303a-de27-48d3-9dfd-5334ee597b24"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[精算金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="140" width="300" height="12" backcolor="#D9D9D9" uuid="0487f91c-1dd2-4139-9fba-27ad4fca9bc0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[通常回収]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="152" width="100" height="12" backcolor="#D9D9D9" uuid="eb73a14f-927f-40f5-9365-ede3fad974de"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[その他]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="300" y="140" width="120" height="24" backcolor="#D9D9D9" uuid="314aa716-a9e4-4ed3-8730-f35d7aa9fbc6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[欠損後回収]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="420" y="140" width="120" height="24" backcolor="#D9D9D9" uuid="73d76c6a-861a-4c72-87c9-8bc1e308c408"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="10"/>
+				</textElement>
+				<text><![CDATA[合計]]></text>
+			</staticText>
+			<textField pattern="#,##0.###">
+				<reportElement x="0" y="164" width="100" height="20" uuid="54321b92-692e-4d4d-b0a2-b7e69f1c65a5"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+					<font fontName="IPAex-gothic"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{合計入金分（料金）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="100" y="164" width="100" height="20" uuid="f5ef6855-949c-48e5-af19-4ca8a6453571"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{合計入金分（精算金）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="200" y="164" width="100" height="20" uuid="4f1d6897-220b-4927-8dfb-8fb39ebffde5"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{合計入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="300" y="164" width="120" height="20" uuid="0ea69820-069c-43ab-a6f0-7191740a558e"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{合計入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="420" y="164" width="120" height="20" uuid="c026919e-9ffc-4df7-8c9b-518ec7acf92d"/>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE( $F{合計入金分（その他）})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="440" y="190" width="100" height="10" uuid="594f58cf-2190-441a-a76c-e1d1d0cdea6b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[単位：（円）　税込]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="301" y="220" width="50" height="12" backcolor="#D9D9D9" uuid="e1d718b5-3da8-4f47-9547-c20bcdf152f5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[担当者]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="301" y="232" width="50" height="48" uuid="ecbbd758-fa10-4063-a1bf-8f559a1f00fc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement mode="Transparent" x="351" y="220" width="50" height="12" backcolor="#D9D9D9" uuid="480ab3e2-7f25-4463-b9cd-b8f6922e30bb"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[上長]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="351" y="232" width="50" height="48" uuid="150496d6-a01a-48a4-85dc-09e5adaa2493"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement mode="Transparent" x="401" y="220" width="50" height="12" backcolor="#D9D9D9" uuid="3e92ced7-b902-441c-88a4-12a1c7707f24"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[課長]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="401" y="232" width="50" height="48" uuid="ef212d26-bd15-4723-865a-49415c9189bc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement mode="Transparent" x="451" y="220" width="50" height="12" backcolor="#D9D9D9" uuid="7fd3721c-3030-40ce-bb9d-e0f77b5eb779"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[部長]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="451" y="232" width="50" height="48" uuid="6461b7b5-9972-4689-b199-f2bb2d3841cc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement mode="Transparent" x="501" y="220" width="50" height="12" backcolor="#D9D9D9" uuid="413dd250-96b5-41a4-844d-d4664a7b3c65"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[社長]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="501" y="232" width="50" height="48" uuid="ccbad4ac-29f3-4222-9dc2-539122070db6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="450" y="10" width="100" height="20" uuid="d2fb59b9-1d29-4b71-887e-a3986dcc47c7"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} / $V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -9,7 +9,7 @@
   <properties>
 
 		<!-- Generic properties -->
-		<java.version>1.6</java.version>
+		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -21,7 +21,7 @@
 
 		<!-- Logging -->
 		<logback.version>1.0.13</logback.version>
-		<slf4j.version>1.7.5</slf4j.version>
+		<slf4j.version>1.7.21</slf4j.version>
 
 		<!-- Test -->
 		<!-- <junit.version>4.11</junit.version> -->
@@ -62,18 +62,37 @@
 		</dependency>
 		-->
 
-		<!-- Logging with SLF4J & LogBack -->
+		<!-- Logging with SLF4J -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j -->
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-			<scope>runtime</scope>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>log4j-over-slf4j</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+		
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		    <version>2.6.1</version>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -114,6 +133,20 @@
 		    <groupId>org.mybatis.spring.boot</groupId>
 		    <artifactId>mybatis-spring-boot-starter</artifactId>
 		    <version>1.1.1</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>logback-classic</artifactId>
+		    		<groupId>ch.qos.logback</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>jul-to-slf4j</artifactId>
+		    		<groupId>org.slf4j</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>jcl-over-slf4j</artifactId>
+		    		<groupId>org.slf4j</groupId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 		
 	</dependencies>	

@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>請求管理</title>
+<base href="../"/>
 <script src="./js/lib/jquery-3.0.0.min.js"></script>
 <script src="./js/lib/jquery-ui.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./js/lib/jquery-ui.min.css"/>
@@ -16,6 +18,8 @@
 <!-- チェックボックス -->
 <link rel="stylesheet" type="text/css" href="./js/lib/icheck-1.x/skins/line/green.css"/>
 <script src="./js/lib/icheck-1.x/icheck.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/3.3.7/css/bootstrap.css"></link>
+<script src="./webjars/bootstrap/3.3.7/js/bootstrap.js"></script>
 <style>
 	.gr-wh-gr-bg {
 		background-image:url(./img/common/gr-wh-gr-bg.png);
@@ -25,17 +29,15 @@
 	.top-title-bar {
 		width: 100%;
 		height: 42px;
-		margin: 0px 10px 0px 10px;
+		padding: 6px 0px 0px 0px;
 		vertical-align: middle;
+		font-weight: 600;
 	}
 	
-	.bill-def-btn {
-	    border-radius: 6px;
-	    border: 3px solid #59e;
-	}
-	
-	.bill-def-btn-txt {
-		color: #3366ee;
+	.navbar-brand {
+	  background: url(./img/common/billing_system_header01.png) no-repeat left center;
+	  height: 90px;
+	  width: 480px;
 	}
 	
 	div {
@@ -53,65 +55,33 @@
 		font-weight: normal;
 		font-style: normal;
 		font-family: 'メイリオ', 'ＭＳ ゴシック', 'Osaka', 'Arial';
+		margin-top: 10px;
 	}
 	
-	div.w1-entry-row {
-		height: 60px; 
+	body {
+	  height: 100%;
 	}
 	
-	div.w1-entry {
-		float:left;
-	    display: table; 
+	/* Wrapper for page content to push down footer */
+	#wrap {
+	  min-height: 100%;
+	  height: auto !important;
+	  height: 100%;
+	  /* Negative indent footer by it's height */
+	  margin: 0 auto -60px;
+	}
+	 
+	/* Set the fixed height of the footer here */
+	#push,
+	footer {
+	  height: 60px;
 	}
 	
-	div.w1-entry .inner-text {
-		height: 42px;
-		vertical-align: middle;
-		text-align: left;
-	    display: table-cell; 
-	}
-	div.w1-entry .inner-toggle {
-		padding-top: 5px;
-		height: 40px;
-		vertical-align: middle;
-		text-align: center;
-	}
-	  
-	.text, textarea, .dropdown{
-	    border:3px solid #00cc00;
-	    padding: 5px;
-	    color: #999;
-	    background: #fff;
-	    border-radius: 10px;
-	    height: 28px;
-	    font-size: 18pt;
-	     
-	    /* Webkit */
-	    background: -webkit-gradient(
-	        linear,
-	        left top,
-	        left bottom,
-	        from(#eee),
-	        to(#fff)
-	        );
-	     
-	    -webkit-border-radius: 5px;
-	    -webkit-box-shadow: 1px 1px 1px #fff;
-	     
-	    /* Firefox */
-	    background: -moz-linear-gradient(
-	        top,
-	        #eee,
-	        #fff
-	        );
-	     
-	    -moz-border-radius: 5px;
-	    -moz-box-shadow: 1px 1px 1px #fff;
-	     
-	    /* IE */
-	    filter:progid:DXImageTransform.Microsoft.gradient
-	        (startColorstr=#ffeeeeee,endColorstr=#ffffffff);
-	    zoom: 1;
+	.bill-search-result-row {
+		border: 2px solid white;
+		padding: 4px;
+		margin: 4px;
+		background-color: #dbeef4;
 	}
 	
 	/* iCheckのstyle調整 */
@@ -139,10 +109,12 @@
     }
 </style>
 <script type="text/javascript">
+	
 	$(document).ready(function ()
 	{
 		$(".addterm_toggle").toggleSwitch();
 		
+		// 日付項目の作成
 	    $( ".datepicker" ).datepicker({
 		      showOtherMonths: true,
 		      selectOtherMonths: true
@@ -169,128 +141,210 @@
 	      });
 	    
 	    $("button").addClass("bill-def-btn");
+
+	    // ボタンアクションを反映
+		$('.submit-trigger').click(function() {
+			$(this).parents('form').attr('action', $(this).data('action'));
+			$(this).parents('form').submit();
+		});
 	});
 </script>
 </head>
-<!-- フォームの見栄え： http://www.webcreatorbox.com/tech/css3-jquery-form/ -->
+
 <body style="width:98%">
-<div style="margin: 20px 10px 10px 20px">
-	<img alt="Header" th:src="@{./img/common/billing_system_header01.png}"></img>
-	<div class="gr-wh-gr-bg top-title-bar">
-		請求管理
+<div id="wrap" style="margin: 20px 10px 10px 20px">
+	<div>
+		<ul class="nav navbar-nav navbar-right">
+		    <li class="dropdown">
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		        	社員番号：AF901-20001<span class="caret"></span>
+		        </a>
+		        <!-- 1.メニューの配置 -->
+		        <ul class="dropdown-menu">
+		            <li><a href="#">パスワード変更</a></li>
+		            <li class="divider"></li>
+		            <li><a href="#">ログアウト</a></li>
+		        </ul>
+		    </li>
+		</ul>
+		<a href="#" class="navbar-brand"> </a>
+	</div>
+	<br style="clear:both"/>
+	
+	<div style="width:98%; text-align: right; position: relative; top: -30px; height: 0px;">
+		<div style="width:100%; line-height: 1.0em; font-size:12px">
+			<div class="">大阪営業所　菅おさむ</div>
+		</div>
 	</div>
 	
 	<div>
-		<div>
-			顧客管理
+		<div class="gr-wh-gr-bg">
+			<div class="top-title-bar">&nbsp;請求管理</div>
 		</div>
-		<!-- 検索項目 -->
-		<div class="w1-entry-row">
-			<div class="w1-entry" style="width:80px">
-				<div class="inner-toggle">
-					<input type="checkbox" class="addterm_toggle" />
-				</div>
-			</div>
-			<div class="w1-entry" style="width:160px;">
-				<p class="inner-text" th:text="#{billing.etnry.bill.day}">請求日</p>
-			</div>
-			<div class="w1-entry">
-				<input type="text" class="datepicker text"/>
-			</div>
-			<br style="clear:both"/>
+	</div>
+	
+	<nav class="navbar navbar-default">
+	  <div id="gnavi" class="collapse navbar-collapse">
+	    <ul class="nav navbar-nav">
+	      <li><a href="">顧客検索</a></li>
+	      <li><a href="">請求</a></li>
+	      <li><a href="">入金</a></li>
+	      <li><a href="">債権</a></li>
+	    </ul>
+	  </div>
+	</nav>
+	
+	<div class="panel panel-default" style="padding: 8px">
+		<div class="panel-heading">
+			<b>顧客検索</b>
 		</div>
-		<!-- 検索項目 -->
-		<div class="w1-entry-row">
-			<div class="w1-entry" style="width:80px">
-				<div class="inner-toggle">
-					<input type="checkbox" class="addterm_toggle" />
+		<div class="panel-body bg-success">
+		<form class="form-horizontal" action="/billing/search" method="POST">
+			
+			<!-- 検索項目 -->
+			<div class="form-group">
+				<label for="billDate" class="col-sm-2 control-label" th:text="#{billing.etnry.bill.day}">請求日</label>
+				<div class="col-sm-1">
+					<div class="inner-toggle input-lg">
+						<input type="checkbox" class="addterm_toggle" />
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control input-lg datepicker"
+						name="billDate" id="billDate" placeholder=""
+						th:value="${billDate}"/>
 				</div>
 			</div>
-			<div class="w1-entry" style="width:160px;">
-				<p class="inner-text" th:text="#{billing.etnry.pay.src.nm}">入金元</p>
+
+			<!-- 検索項目 -->
+			<div class="form-group">
+				<label for="payWay" class="col-sm-2 control-label" th:text="#{billing.etnry.pay.src.nm}">入金元</label>
+				<div class="col-sm-1">
+					<div class="inner-toggle input-lg">
+						<input type="checkbox" class="addterm_toggle" />
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<div style="float:left; padding-right:4px">
+						<input type="checkbox" class="payway" name="payWay" id="payWay1" value="0101" th:checked="${payWayChecked[0]}"/><label for="payWay1">振込</label>
+					</div>
+					<div style="float:left; padding-right:4px">
+						<input type="checkbox" class="payway" name="payWay" id="payWay2" value="0102" th:checked="${payWayChecked[1]}"/><label for="payWay2">振替</label>
+					</div>
+					<div style="float:left; padding-right:4px">
+						<input type="checkbox" class="payway" name="payWay" id="payWay3" value="0201" th:checked="${payWayChecked[2]}"/><label for="payWay3">カード</label>
+					</div>
+					<div style="float:left; padding-right:4px">
+						<input type="checkbox" class="payway" name="payWay" id="payWay4" value="0301" th:checked="${payWayChecked[3]}"/><label for="payWay4">コンビニ払込</label>
+					</div>
+					<br style="clear:both"/>
+				</div>
 			</div>
-			<div class="w1-entry">
-				<div style="float:left; padding-right:4px">
-					<input type="checkbox" class="payway"/><label>振込</label>
+
+			<!-- 検索項目 -->
+			<div class="form-group">
+				<label for="custNm" class="col-sm-2 control-label" th:text="#{billing.etnry.cust.id}">顧客ID</label>
+				<div class="col-sm-1">
+					<div class="inner-toggle input-lg">
+						<input type="checkbox" class="addterm_toggle" />
+					</div>
 				</div>
-				<div style="float:left; padding-right:4px">
-					<input type="checkbox" class="payway"/><label>振替</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control input-lg"
+						name="custId" id="custId" placeholder=""
+						th:value="${custId}"/>
 				</div>
-				<div style="float:left; padding-right:4px">
-					<input type="checkbox" class="payway"/><label>カード</label>
+			</div>
+			
+			<!-- 検索項目 -->
+			<div class="form-group">
+				<label for="custNm" class="col-sm-2 control-label" th:text="#{billing.etnry.cust.nm}">顧客名</label>
+				<div class="col-sm-1">
+					<div class="inner-toggle input-lg">
+						<input type="checkbox" class="addterm_toggle" />
+					</div>
 				</div>
-				<div style="float:left; padding-right:4px">
-					<input type="checkbox" class="payway"/><label>コンビニ払込</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control input-lg"
+						name="custNm" id="custNm" placeholder=""
+						th:value="${custNm}"/>
+				</div>
+			</div>
+			
+			<div style="text-align:center">
+				<button class="btn btn-success btn-lg submit-trigger" data-action="/billing/search">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span> 検索実行
+				</button>
+			</div>
+		</form>
+		</div>
+	</div>
+	
+	<div class="panel panel-default" style="padding: 8px">
+		<div class="panel-heading">
+			<b>検索結果</b>
+		</div>
+		<div class="panel-body" style="background-color: #f5f5f5; padding: 4px 4px 4px 4px">
+			<div th:each="billInfo : ${billInfoList}" class="bill-search-result-row">
+				<div style="float: left; background-color: #00b0f0; height: 28px; width: 22px"></div>
+				<div style="float: left; background-color: #00b0f0; height: 28px; width: 96%; margin-left: 2px">
+					<div style="clear:both; background-color: #dbeef4; height: 28px; width: 200px; text-align:center">
+						請求先顧客情報
+					</div>
 				</div>
 				<br style="clear:both"/>
-			</div>
-		</div>
-		<br style="clear:both"/>
-		
-		<!-- 検索項目 -->
-		<div class="w1-entry-row">
-			<div class="w1-entry" style="width:80px">
-				<div class="inner-toggle">
-					<input type="checkbox" class="addterm_toggle" />
+				<div class="row" style="height:30px">
+					<div class="col-sm-1">
+						<img alt="human_icon" th:src="@{./img/common/human_icon01.png}"></img>
+					</div>
+					<div class="col-sm-3">
+						<div th:text="${billInfo.custName}">顧客名</div>
+					</div>
+					<div class="col-sm-2">
+						<div th:text="#{billing.search.result.billno.nm}">請求先番号</div>
+					</div>
+					<div class="col-sm-2">
+						<div th:text="${billInfo.billNo}">3650000001</div>
+					</div>
+					<div class="col-sm-2">
+						<div th:text="#{billing.search.result.billdate.nm}">請求日</div>
+					</div>
+					<div class="col-sm-2">
+						<div th:text="${billInfo.billDate}">2016/04/15</div>
+					</div>
 				</div>
-			</div>
-			<div class="w1-entry" style="width:160px;">
-				<p class="inner-text" th:text="#{billing.etnry.cust.nm}">顧客名</p>
-			</div>
-			<div class="w1-entry">
-				<input type="text" class="text" />
-			</div>
-			<br style="clear:both"/>
-		</div>
-		<!-- 検索項目 -->
-		<div class="w1-entry-row">
-			<div class="w1-entry" style="width:80px">
-				<div class="inner-toggle">
-					<input type="checkbox" class="addterm_toggle" />
+				<div class="row" style="height:40px">
+					<div class="col-sm-2">
+						<div th:text="'〒' + ${billInfo.postCd}">〒000-0000</div>
+					</div>
+					<div class="col-sm-5">
+						<div th:text="${billInfo.addr}">大阪府大阪市○○区○○市１－１</div>
+					</div>
+					<div class="col-sm-2">
+						<div th:text="#{billing.search.result.payway.nm}">入金元</div>
+					</div>
+					<div class="col-sm-2">
+						<div th:text="${billInfo.depositSrc}">振込</div>
+					</div>
 				</div>
-			</div>
-			<div class="w1-entry" style="width:160px;">
-				<p class="inner-text" th:text="#{billing.etnry.cust.id}">顧客ID</p>
-			</div>
-			<div class="w1-entry">
-				<input type="text" class="text" />
-			</div>
-			<br style="clear:both"/>
-		</div>
-		
-		<div style="text-align:center">
-			<button style="width:200px;">
-				<div style="float:left">
-					<img src="./img/common/scan_icon01.png" width="32" height="32"/>
+				<div class="row" style="height:40px">
+					<div class="col-sm-1">
+						<div th:text="#{billing.search.result.telno.nm}">TEL:</div>
+					</div>
+					<div class="col-sm-4">
+						<div th:text="${billInfo.telNo}">06-0000-00000</div>
+					</div>
 				</div>
-				<div class="bill-def-btn-txt">検索実行</div>
-			</button>
-			<br style="clear:both"/>
+				
+			</div>
 		</div>
 	</div>
-	
-	<div>
-		検索結果
-	</div>
-	<div style="background-color: #dbeef4; padding: 4px 4px 4px 4px">
-		<div style="float: left; background-color: #00b0f0; height: 28px; width: 22px"></div>
-		<div style="float: left; background-color: #00b0f0; height: 28px; width: 800px; margin-left: 2px">
-			<div style="clear:both; background-color: #dbeef4; height: 28px; width: 200px; text-align:center">
-				請求先顧客情報
-			</div>
-		</div>
-		<br style="clear:both"/>
-		<div th:each="billInfo : ${billInfoList}">
-			<div style="float: left;">
-				<img alt="human_icon" th:src="@{./img/common/human_icon01.png}"></img>
-			</div>
-			<div style="float: left;">
-				<div th:text="${billInfo.custName}">顧客名</div>
-			</div>
-			<br style="clear:both"/>
-		</div>
-		<br style="clear:both"/>
-	</div>
+	<div id="push"></div>
 </div>
+<footer class="footer">
+  <div class="container">
+		<div >プラグインなど: <a href="http://getbootstrap.com/">bootstrap.com</a> <a href="http://glyphicons.com">glyphicons.com</a></div>
+  </div>
+</footer>
 </body>
 </html>

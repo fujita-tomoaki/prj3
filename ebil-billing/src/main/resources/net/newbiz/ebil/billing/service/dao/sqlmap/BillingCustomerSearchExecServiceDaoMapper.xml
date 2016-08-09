@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.newbiz.ebil.billing.service.dao.BillingCustomerSearchExecServiceDaoMapper">
+
+  <select id="searchCust" parameterType="map" resultType="hashmap">
+		select
+			 c.cust_cd
+			,c.cust_nm
+			,c.cust_kana
+			,c.cust_sex
+			,c.cust_type
+			,c.sys_state_cd
+			,c.cust_telno
+			,c.cust_mob_telno
+			,c.cust_mail_addr
+			,a.cust_addr_postcd
+			,a.cust_addr_pref || a.cust_addr_city || a.cust_addr_steet  as cust_addr
+			,m.pay_type_cd
+			,m.pay_type_nm
+			,b.bill_no
+			,b.bill_date
+		from
+				t_cust c
+			inner join t_bill b
+				on b.cust_cd = c.cust_cd 
+			inner join t_cust_addr a
+				on a.cust_cd = c.cust_cd
+				and a.cust_addr_type = '1'
+			inner join t_cust_payway p
+				on p.cust_cd = c.cust_cd
+			inner join m_payway m
+				on m.pay_type_cd = p.pay_type_cd
+		where 1=1
+    	<if test="cust_kana != null">
+			and c.cust_kana like '${cust_kana}%'
+		</if>
+    	<if test="pay_type_cd != null">
+			and p.pay_type_cd in (${pay_type_cd})
+		</if>
+    	<if test="bill_date != null">
+			and b.bill_date = #{bill_date}
+		</if>
+    	<if test="cust_cd != null">
+			and c.cust_cd = ${cust_cd}
+		</if>
+		
+  </select>
+
+</mapper>

@@ -455,6 +455,76 @@ public class TBillExample {
             return (Criteria) this;
         }
 
+        public Criteria andBillDateIsNull() {
+            addCriterion("bill_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateIsNotNull() {
+            addCriterion("bill_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateEqualTo(String value) {
+            addCriterion("bill_date =", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateNotEqualTo(String value) {
+            addCriterion("bill_date <>", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateGreaterThan(String value) {
+            addCriterion("bill_date >", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateGreaterThanOrEqualTo(String value) {
+            addCriterion("bill_date >=", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateLessThan(String value) {
+            addCriterion("bill_date <", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateLessThanOrEqualTo(String value) {
+            addCriterion("bill_date <=", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateLike(String value) {
+            addCriterion("bill_date like", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateNotLike(String value) {
+            addCriterion("bill_date not like", value, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateIn(List<String> values) {
+            addCriterion("bill_date in", values, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateNotIn(List<String> values) {
+            addCriterion("bill_date not in", values, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateBetween(String value1, String value2) {
+            addCriterion("bill_date between", value1, value2, "billDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBillDateNotBetween(String value1, String value2) {
+            addCriterion("bill_date not between", value1, value2, "billDate");
+            return (Criteria) this;
+        }
+
         public Criteria andBillGeneSrcIsNull() {
             addCriterion("bill_gene_src is null");
             return (Criteria) this;

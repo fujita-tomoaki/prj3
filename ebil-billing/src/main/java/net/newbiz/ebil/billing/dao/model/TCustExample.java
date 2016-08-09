@@ -325,6 +325,76 @@ public class TCustExample {
             return (Criteria) this;
         }
 
+        public Criteria andCustKanaIsNull() {
+            addCriterion("cust_kana is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaIsNotNull() {
+            addCriterion("cust_kana is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaEqualTo(String value) {
+            addCriterion("cust_kana =", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaNotEqualTo(String value) {
+            addCriterion("cust_kana <>", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaGreaterThan(String value) {
+            addCriterion("cust_kana >", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaGreaterThanOrEqualTo(String value) {
+            addCriterion("cust_kana >=", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaLessThan(String value) {
+            addCriterion("cust_kana <", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaLessThanOrEqualTo(String value) {
+            addCriterion("cust_kana <=", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaLike(String value) {
+            addCriterion("cust_kana like", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaNotLike(String value) {
+            addCriterion("cust_kana not like", value, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaIn(List<String> values) {
+            addCriterion("cust_kana in", values, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaNotIn(List<String> values) {
+            addCriterion("cust_kana not in", values, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaBetween(String value1, String value2) {
+            addCriterion("cust_kana between", value1, value2, "custKana");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustKanaNotBetween(String value1, String value2) {
+            addCriterion("cust_kana not between", value1, value2, "custKana");
+            return (Criteria) this;
+        }
+
         public Criteria andCustSexIsNull() {
             addCriterion("cust_sex is null");
             return (Criteria) this;
@@ -442,6 +512,216 @@ public class TCustExample {
 
         public Criteria andCustTypeNotBetween(Short value1, Short value2) {
             addCriterion("cust_type not between", value1, value2, "custType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoIsNull() {
+            addCriterion("cust_telno is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoIsNotNull() {
+            addCriterion("cust_telno is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoEqualTo(String value) {
+            addCriterion("cust_telno =", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoNotEqualTo(String value) {
+            addCriterion("cust_telno <>", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoGreaterThan(String value) {
+            addCriterion("cust_telno >", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoGreaterThanOrEqualTo(String value) {
+            addCriterion("cust_telno >=", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoLessThan(String value) {
+            addCriterion("cust_telno <", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoLessThanOrEqualTo(String value) {
+            addCriterion("cust_telno <=", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoLike(String value) {
+            addCriterion("cust_telno like", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoNotLike(String value) {
+            addCriterion("cust_telno not like", value, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoIn(List<String> values) {
+            addCriterion("cust_telno in", values, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoNotIn(List<String> values) {
+            addCriterion("cust_telno not in", values, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoBetween(String value1, String value2) {
+            addCriterion("cust_telno between", value1, value2, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustTelnoNotBetween(String value1, String value2) {
+            addCriterion("cust_telno not between", value1, value2, "custTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoIsNull() {
+            addCriterion("cust_mob_telno is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoIsNotNull() {
+            addCriterion("cust_mob_telno is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoEqualTo(String value) {
+            addCriterion("cust_mob_telno =", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoNotEqualTo(String value) {
+            addCriterion("cust_mob_telno <>", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoGreaterThan(String value) {
+            addCriterion("cust_mob_telno >", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoGreaterThanOrEqualTo(String value) {
+            addCriterion("cust_mob_telno >=", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoLessThan(String value) {
+            addCriterion("cust_mob_telno <", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoLessThanOrEqualTo(String value) {
+            addCriterion("cust_mob_telno <=", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoLike(String value) {
+            addCriterion("cust_mob_telno like", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoNotLike(String value) {
+            addCriterion("cust_mob_telno not like", value, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoIn(List<String> values) {
+            addCriterion("cust_mob_telno in", values, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoNotIn(List<String> values) {
+            addCriterion("cust_mob_telno not in", values, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoBetween(String value1, String value2) {
+            addCriterion("cust_mob_telno between", value1, value2, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMobTelnoNotBetween(String value1, String value2) {
+            addCriterion("cust_mob_telno not between", value1, value2, "custMobTelno");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrIsNull() {
+            addCriterion("cust_mail_addr is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrIsNotNull() {
+            addCriterion("cust_mail_addr is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrEqualTo(String value) {
+            addCriterion("cust_mail_addr =", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrNotEqualTo(String value) {
+            addCriterion("cust_mail_addr <>", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrGreaterThan(String value) {
+            addCriterion("cust_mail_addr >", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrGreaterThanOrEqualTo(String value) {
+            addCriterion("cust_mail_addr >=", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrLessThan(String value) {
+            addCriterion("cust_mail_addr <", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrLessThanOrEqualTo(String value) {
+            addCriterion("cust_mail_addr <=", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrLike(String value) {
+            addCriterion("cust_mail_addr like", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrNotLike(String value) {
+            addCriterion("cust_mail_addr not like", value, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrIn(List<String> values) {
+            addCriterion("cust_mail_addr in", values, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrNotIn(List<String> values) {
+            addCriterion("cust_mail_addr not in", values, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrBetween(String value1, String value2) {
+            addCriterion("cust_mail_addr between", value1, value2, "custMailAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andCustMailAddrNotBetween(String value1, String value2) {
+            addCriterion("cust_mail_addr not between", value1, value2, "custMailAddr");
             return (Criteria) this;
         }
 

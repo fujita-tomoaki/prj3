@@ -9,7 +9,10 @@
 	<!-- 書き方 -->
 	<!-- https://www.ois-yokohama.co.jp/oisblog/archives/534 -->
 	
-	<context:component-scan base-package="net.newbiz.ebil.billing" />
+	<!-- <context:component-scan base-package="net.newbiz.ebil.billing" /> -->
+	<context:component-scan base-package="net.newbiz.ebil.billing.service" />
+	<context:component-scan base-package="net.newbiz.ebil.billing.dao" />
+	<context:component-scan base-package="net.newbiz.ebil.billing.service.dao" />
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="${spring.datasource.driverClassName}"/>
@@ -21,7 +24,12 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	  <property name="dataSource" ref="dataSource" />
 	  <!-- SQL-Mapを読み込む -->
-	  <property name="mapperLocations" value="classpath*:net/newbiz/ebil/billing/dao/sqlmap/*.xml" />
+	  <property name="mapperLocations">
+	  	<list>
+		  	<value>classpath*:net/newbiz/ebil/billing/dao/sqlmap/*.xml</value>
+		  	<value>classpath*:net/newbiz/ebil/billing/service/dao/sqlmap/*.xml</value>
+	  	</list>
+	  </property>
 	</bean>
 	
     <!-- SqlSessionFactoryの設定 -->
@@ -29,11 +37,19 @@
 		<property name="mapperInterface" value="net.newbiz.ebil.billing.dao.TCustMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	<bean id="TCustMapperExt" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.newbiz.ebil.billing.dao.TCustMapperExt" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 	<bean id="TBillMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="net.newbiz.ebil.billing.dao.TBillMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
+	<bean id="BillingCustomerSearchExecServiceDaoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.newbiz.ebil.billing.service.dao.BillingCustomerSearchExecServiceDaoMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	 
 	<!-- 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	  <property name="basePackage" value="net.newbiz.ebil.billing.dao.sqlmap" />

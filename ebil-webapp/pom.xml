@@ -5,7 +5,7 @@
 
 	<groupId>net.newbiz.ebil</groupId>
 	<artifactId>ebil-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.7-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>ebil-webapp</name>
@@ -24,11 +24,12 @@
 		
 		<!-- Logging -->
 		<logback.version>1.0.13</logback.version>
-		<slf4j.version>1.7.5</slf4j.version>
+		<slf4j.version>1.7.21</slf4j.version>
 		
 	</properties>
 
 	<dependencies>
+		<!-- 
         <dependency>
             <groupId>net.newbiz.ebil</groupId>
             <artifactId>ebil-billing</artifactId>
@@ -36,24 +37,66 @@
             <scope>system</scope>
             <systemPath>${basedir}/../ebil-billing/target/ebil-billing-0.0.1-SNAPSHOT.jar</systemPath>
         </dependency>
+         -->
+         
+        <!-- package時 -->
+        <dependency>
+            <groupId>net.newbiz.ebil</groupId>
+            <artifactId>ebil-billing</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <!-- <scope>runtime</scope> -->
+        </dependency>
         
-		<!-- Logging with SLF4J & LogBack -->
+		<!-- Logging with SLF4J -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j -->
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-			<scope>runtime</scope>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>log4j-over-slf4j</artifactId>
+		    <version>${slf4j.version}</version>
 		</dependency>
-        
+		
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>logback-classic</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jul-to-slf4j</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jcl-over-slf4j</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,6 +111,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>4.2.6.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 		
@@ -98,6 +149,20 @@
 		    <version>3.4.0</version>
 		</dependency>
 		
+		<!-- Elastic BeansTalkデプロイ時にエラーが起こるため追加 -->
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+		    <groupId>commons-logging</groupId>
+		    <artifactId>commons-logging</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>3.3.7</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -109,5 +174,42 @@
 		</plugins>
 	</build>
 	
-
+	<!-- Mavenのパラメータに -P release と与える事で実行 -->
+	<profiles>
+		<profile>
+			<id>release</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+			        	<version>3.0.1</version>
+					    <executions>
+					    	<!-- リソースのコピー -->
+					    	<!-- https://maven.apache.org/plugins/maven-resources-plugin/examples/copy-resources.html -->
+							<execution>
+							  <id>copy-resources</id>
+							  <phase>compile</phase>
+							  <goals>
+							    <goal>copy-resources</goal>
+							  </goals>
+							  <configuration>
+							    <resources>
+							      <resource>
+							      	<directory>${basedir}/../ebil-release/src/main/resources</directory>
+							      	<!-- filtering=trueにしないと上書きされない -->
+							        <filtering>true</filtering>
+							      </resource>
+							    </resources>
+							    <outputDirectory>${basedir}/target/classes</outputDirectory>
+							  </configuration>
+							</execution>
+					    </executions>
+		   			</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

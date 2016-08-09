@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-03T16:28:09 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_3" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65956e31-9b08-42f0-ac7d-242200e1f443">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MisyuListAdapter.xml"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="顧客番号" class="java.lang.String"/>
+	<field name="顧客氏名" class="java.lang.String"/>
+	<field name="顧客住所" class="java.lang.String"/>
+	<field name="未収金額" class="java.lang.String"/>
+	<field name="督促状発行日" class="java.lang.String"/>
+	<field name="未収理由" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="10" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="320" y="10" width="100" height="30" uuid="dc15e863-5f50-4f4b-85bf-c41150ba2448"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="18"/>
+				</textElement>
+				<text><![CDATA[未収者一覧]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="680" y="55" width="100" height="10" uuid="cff09b75-4032-4070-80dc-e12391c7a9cc"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[単位：（円）　税込]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="30" height="25" backcolor="#D9D9D9" uuid="2f9e120f-c457-4ba2-af4f-80a879418f92"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="30" y="0" width="80" height="25" backcolor="#D9D9D9" uuid="efe36f11-b9e9-4dbd-8a96-6f16271dec05"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[顧客番号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="110" y="0" width="130" height="25" backcolor="#D9D9D9" uuid="72a76d76-8b0e-4a68-a80d-0edd56f9433a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[顧客氏名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="240" y="0" width="240" height="25" backcolor="#D9D9D9" uuid="112d4b49-224a-40e6-aa18-d72891d3e5eb"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[顧客住所]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="480" y="0" width="100" height="25" backcolor="#D9D9D9" uuid="776bd110-4699-41fa-a222-44ade44141b4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[未収金額]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="580" y="0" width="100" height="25" backcolor="#D9D9D9" uuid="dbd61ef5-3f6d-4945-826e-da805a85d996"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[督促状送付日]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="680" y="0" width="100" height="25" backcolor="#D9D9D9" uuid="3217bafc-331e-4f09-bcdb-bb6386e321bd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo"/>
+				</textElement>
+				<text><![CDATA[未収理由]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="30" height="40" uuid="c01a26e9-2dca-4dfe-bd5f-ca813359aabb">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="80" height="40" uuid="362ae950-23ce-4e77-815f-0649a4764afb"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{顧客番号}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="240" height="40" uuid="b948019c-8741-4733-aa53-45c105883604"/>
+				<box leftPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{顧客住所}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="130" height="40" uuid="5e45d215-7216-4ef9-980d-f3e25271a4a2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{顧客氏名}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###">
+				<reportElement x="480" y="0" width="100" height="40" uuid="b1d85a48-9c09-4f59-aaef-95fb3926c64e"/>
+				<box rightPadding="8">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[INTEGER_VALUE($F{未収金額})]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="580" y="0" width="100" height="40" uuid="429d87e6-39d1-494a-a463-bc08efeea7d4">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[EQUALS($F{督促状発行日}, "") ? "" : ($F{督促状発行日}.substring( 0, 4 ) + "/" + $F{督促状発行日}.substring( 4, 6) + "/" + $F{督促状発行日}.substring( 6, 8))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="680" y="0" width="100" height="40" uuid="503e6300-7ba8-4b60-aadf-9ca35d2cc1d4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAex-mincyo" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{未収理由}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="700" y="20" width="100" height="20" uuid="2400a51e-5c37-4852-b60a-04982edcb7f1"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="IPAex-gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} ]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
